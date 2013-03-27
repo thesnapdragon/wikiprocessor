@@ -1,0 +1,9 @@
+-buildpath: osgi.core,\
+	hu.sztaki.sztakipediaparser
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
+-runee: OSGi/Minimum-1.2
+Private-Package: wikiprocessor.parser
+-resolve: auto
+-runrequires: osgi.identity;filter:='(osgi.identity=hu.sztaki.sztakipediaparser)'
+-runbundles: hu.sztaki.sztakipediaparser;version='[0.1.0,0.1.1)'
+Bundle-Activator: wikiprocessor.parser.SimpleParserActivator

@@ -1,0 +1,8 @@
+-runfw: org.apache.felix.framework;version='[4.0.3,4.0.3]'
+-runee: OSGi/Minimum-1.2
+-buildpath: osgi.core,\
+	org.jibble.pircbot
+-runrequires: osgi.identity;filter:='(osgi.identity=org.jibble.pircbot)'
+-runbundles: org.jibble.pircbot;version='[3.0.0,3.0.1)'
+Bundle-Activator: wikiprocessor.wikibot.WikiBotActivator
+Private-Package: wikiprocessor.wikibot

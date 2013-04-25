@@ -2,7 +2,12 @@
 -runee: OSGi/Minimum-1.2
 -buildpath: osgi.core,\
 	org.jibble.pircbot
--runrequires: osgi.identity;filter:='(osgi.identity=org.jibble.pircbot)'
--runbundles: org.jibble.pircbot;version='[3.0.0,3.0.1)'
+-runrequires: osgi.identity;filter:='(osgi.identity=org.jibble.pircbot)',\
+	osgi.identity;filter:='(osgi.identity=parserbundle)',\
+	osgi.identity;filter:='(osgi.identity=hu.sztaki.sztakipediaparser)'
+-runbundles: org.jibble.pircbot;version='[3.0.0,3.0.1)',\
+	parserbundle;version=latest,\
+	hu.sztaki.sztakipediaparser
 Bundle-Activator: wikiprocessor.wikibot.WikiBotActivator
 Private-Package: wikiprocessor.wikibot
+Bundle-Version: 1.0

@@ -1,10 +1,15 @@
 package wikiprocessor.wikibot;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.jibble.pircbot.Colors;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
+
+import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * 
@@ -14,33 +19,48 @@ import org.jibble.pircbot.PircBot;
  *
  * WikiBot
  * 
- * it tells the time
+ * it greps name of the new WikiPedia pages, and sends to SimpleParser
  */
 public class WikiBot extends PircBot {
 
 	// IRC server
-	String serverName;
+	private String serverName;
 	// IRC channel
-	String channelName;
+	private String channelName;
+	// QueueManager instance
+	private QueueManagerService queue = null;
 	
 	/**
 	 * WikiBot constructor
 	 * 
 	 * sets IRC datas, bot's name
 	 */
-	public WikiBot() {
+	public WikiBot(QueueManagerService qms) {
+		// sets IRC parameters
 		serverName = "irc.wikimedia.org";
 		channelName = "#en.wikipedia";
-        setName("WikiBot");
+        setName("WikiProcessorBot");
+        // sets QueueManager instance
+        queue = qms;
     }
     
 	/**
-	 * when asked, it tells the time
+	 * grep page names
 	 */
     public void onMessage(String channel, String sender, String login, String hostname, String message) {
-		if (message.equalsIgnoreCase("time")) {
-			String time = new java.util.Date().toString();
-			sendMessage(channel, sender + ": The time is now " + time);
+    	// grep name of page from message
+    	if (sender.equals("rc-pmtpa")) {
+			Pattern pattern = Pattern.compile("\\[\\[(.*)\\]\\]");
+			Matcher matcher = pattern.matcher(Colors.removeColors(message));
+			
+			if (matcher.find()) {
+				String content = matcher.group(1);
+				// ignore List, Category, Talk... containing colon
+				if (!(content.matches(".*:.*") || content.matches(".*List of.*"))) {
+					queue.addToQueue(content);
+					// TODO: String queryurl = "http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&titles=";
+				}
+			}
 		}
 	}
 	

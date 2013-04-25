@@ -1,24 +1,37 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1364408457711' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1366902161912' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
-      <attribute name='osgi.identity' value='sztakipediaparserbundle'/>
+      <attribute name='osgi.identity' value='parserbundle'/>
       <attribute name='type' value='osgi.bundle'/>
-      <attribute name='version' type='Version' value='0.0.0'/>
+      <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='275c72f2d5bbdb0bf95d2c683c850f0da784455e72d32c4cf196b595507bcf62'/>
-      <attribute name='url' value='generated/sztakipediaparserbundle.jar'/>
-      <attribute name='size' type='Long' value='4944'/>
+      <attribute name='osgi.content' value='036a54591cbdafc449422fb5ba6944182f71d2db21992d7b283fe97019b8f43e'/>
+      <attribute name='url' value='generated/parserbundle.jar'/>
+      <attribute name='size' type='Long' value='8810'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>
-      <attribute name='osgi.wiring.bundle' value='sztakipediaparserbundle'/>
-      <attribute name='bundle-version' type='Version' value='0.0.0'/>
+      <attribute name='osgi.wiring.bundle' value='parserbundle'/>
+      <attribute name='bundle-version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.wiring.host'>
-      <attribute name='osgi.wiring.host' value='sztakipediaparserbundle'/>
-      <attribute name='bundle-version' type='Version' value='0.0.0'/>
+      <attribute name='osgi.wiring.host' value='parserbundle'/>
+      <attribute name='bundle-version' type='Version' value='1.0.0'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='wikiprocessor.parser.service'/>
+      <attribute name='version' type='Version' value='1.0.0'/>
+      <attribute name='bundle-symbolic-name' value='parserbundle'/>
+      <attribute name='bundle-version' type='Version' value='1.0.0'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='wikiprocessor.parser'/>
+      <attribute name='version' type='Version' value='1.0.0'/>
+      <attribute name='bundle-symbolic-name' value='parserbundle'/>
+      <attribute name='bundle-version' type='Version' value='1.0.0'/>
+      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.converter,hu.sztaki.sztakipediaparser.wiki.parser,wikiprocessor.parser.service,org.osgi.framework'/>
     </capability>
     <capability namespace='bndtools.workspace'>
       <attribute name='bndtools.workspace' value='file:/home/chef/prog'/>

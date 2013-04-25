@@ -1,7 +1,11 @@
 package wikiprocessor.parser;
 
+import java.util.Hashtable;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+
+import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * 
@@ -13,13 +17,17 @@ import org.osgi.framework.BundleContext;
  * 
  * manages Parser's lifecycle
  */
-public class SimpleParserActivator implements BundleActivator{
+public class SimpleParserActivator implements BundleActivator {
 	
 	/**
 	 * starts Parser
 	 */
     public void start(BundleContext context){
         System.out.println("Starting parser bundle.");
+        // register QueueManagerService
+        Hashtable<String, String> properties = new Hashtable<String, String>();
+        properties.put("WikiProcessorModule", "QueueManagerService");
+        context.registerService(QueueManagerService.class.getName(), new QueueManager(), properties);
     }
 
     /**

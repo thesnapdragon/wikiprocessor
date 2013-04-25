@@ -2,6 +2,9 @@ package wikiprocessor.wikibot;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * 
@@ -13,14 +16,18 @@ import org.osgi.framework.BundleContext;
  * 
  * manages WikiBot's lifecycle
  */
-public class WikiBotActivator implements BundleActivator{
+public class WikiBotActivator implements BundleActivator {
 	
 	/**
 	 * starts WikiBot
 	 */
     public void start(BundleContext context){
-        System.out.println("Starting IRC bot bundle.");
-        WikiBot bot=new WikiBot();
+        System.out.println("Starting IRC bot bundle.");        
+        // gets QueueManager instance
+        ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
+        QueueManagerService queue = (QueueManagerService) context.getService(qmsref);
+        // starting bot
+        WikiBot bot=new WikiBot(queue);
         bot.start();
     }
 

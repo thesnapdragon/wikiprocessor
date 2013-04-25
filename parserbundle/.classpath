@@ -5,5 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="aQute.bnd.classpath.container"/>
 	<classpathentry kind="lib" path="/cnf/buildrepo/osgi.core/osgi.core-4.0.1.jar"/>
+	<classpathentry kind="lib" path="/home/chef/Egyetem/Onlab/repository/ircbotbundle/bin/wikiprocessor/wikibot"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -25,11 +25,9 @@ public class SimpleParser extends Parser {
 		String outputFileName = args[1];
 		File outfile = new File(outputFileName);
 		boolean isIODirectory = infile.isDirectory();
-		if ((infile.isDirectory() && outfile.isFile())
-				|| (infile.isFile() && outfile.isDirectory())) {
+		if ((infile.isDirectory() && outfile.isFile()) || (infile.isFile() && outfile.isDirectory())) {
 			printUsage();
-			System.out
-					.println("Input and output must be the same type: both files, or directories!");
+			System.out.println("Input and output must be the same type: both files, or directories!");
 		}
 
 		String locale = args[2];

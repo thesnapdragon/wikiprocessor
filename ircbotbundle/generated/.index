@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1366902162977' name='ircbotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1366976496140' name='ircbotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='ircbotbundle'/>
@@ -7,9 +7,9 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='051c2c4ac470c725fc48b1517adea5e2cdeb4c57fd17292ad1eb232c245b0e92'/>
+      <attribute name='osgi.content' value='a49b3eb7388570ac938b6dd5d4af96d20d2f1c4a23cebac18a8cd2b009bc4615'/>
       <attribute name='url' value='generated/ircbotbundle.jar'/>
-      <attribute name='size' type='Long' value='5801'/>
+      <attribute name='size' type='Long' value='5767'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>

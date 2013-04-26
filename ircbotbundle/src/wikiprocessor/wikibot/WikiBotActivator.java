@@ -10,7 +10,7 @@ import wikiprocessor.parser.service.QueueManagerService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.03.27.
+ * @since 2013.04.25.
  *
  * Activator class for WikiBot
  * 

@@ -11,7 +11,7 @@ import wikiprocessor.parser.service.QueueManagerService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.03.27.
+ * @since 2013.04.26.
  *
  * Activator class for SztakipediaParser
  * 
@@ -24,10 +24,15 @@ public class SimpleParserActivator implements BundleActivator {
 	 */
     public void start(BundleContext context){
         System.out.println("Starting parser bundle.");
-        // register QueueManagerService
+        // create service properties
         Hashtable<String, String> properties = new Hashtable<String, String>();
         properties.put("WikiProcessorModule", "QueueManagerService");
-        context.registerService(QueueManagerService.class.getName(), new QueueManager(), properties);
+        QueueManager queuemanager = new QueueManager();
+        // add observer to QueueManager
+        WikiDownloader wikidownloader = new WikiDownloader();
+        queuemanager.addObserver(wikidownloader);
+        // register service
+        context.registerService(QueueManagerService.class.getName(), queuemanager, properties);
     }
 
     /**

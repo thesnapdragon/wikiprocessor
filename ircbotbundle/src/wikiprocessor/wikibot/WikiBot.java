@@ -15,11 +15,11 @@ import wikiprocessor.parser.service.QueueManagerService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.03.27.
+ * @since 2013.04.25.
  *
  * WikiBot
  * 
- * it greps name of the new WikiPedia pages, and sends to SimpleParser
+ * it gets data from IRC channel, and send to parser's queue
  */
 public class WikiBot extends PircBot {
 
@@ -45,7 +45,10 @@ public class WikiBot extends PircBot {
     }
     
 	/**
-	 * grep page names
+	 * WikiBot onMessage event listener
+	 * 
+	 * grep name of the new WikiPedia pages, and send to SimpleParser
+	 * 
 	 */
     public void onMessage(String channel, String sender, String login, String hostname, String message) {
     	// grep name of page from message
@@ -57,8 +60,8 @@ public class WikiBot extends PircBot {
 				String content = matcher.group(1);
 				// ignore List, Category, Talk... containing colon
 				if (!(content.matches(".*:.*") || content.matches(".*List of.*"))) {
+					// add pagename to the parser's queue
 					queue.addToQueue(content);
-					// TODO: String queryurl = "http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&titles=";
 				}
 			}
 		}

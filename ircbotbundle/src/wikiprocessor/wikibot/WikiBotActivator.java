@@ -27,7 +27,7 @@ public class WikiBotActivator implements BundleActivator {
         ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
         QueueManagerService queue = (QueueManagerService) context.getService(qmsref);
         // starting bot
-        WikiBot bot=new WikiBot(queue);
+        WikiBot bot = new WikiBot(queue);
         bot.start();
     }
 

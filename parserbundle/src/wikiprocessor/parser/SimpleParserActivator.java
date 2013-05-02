@@ -1,5 +1,6 @@
 package wikiprocessor.parser;
 
+import java.net.URL;
 import java.util.Hashtable;
 
 import org.osgi.framework.BundleActivator;
@@ -29,7 +30,8 @@ public class SimpleParserActivator implements BundleActivator {
         properties.put("WikiProcessorModule", "QueueManagerService");
         QueueManager queuemanager = new QueueManager();
         // add observer to QueueManager
-        WikiDownloader wikidownloader = new WikiDownloader();
+        URL xsdURL = context.getBundle().getEntry("wikiprocessor/parser/wikiapi.xsd");
+        WikiDownloader wikidownloader = new WikiDownloader(xsdURL);
         queuemanager.addObserver(wikidownloader);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);

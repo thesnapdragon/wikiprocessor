@@ -10,13 +10,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
  * @since 2013.04.26.
  *
  * QueueManager implementation
- * 
  */
 public class SimpleParser extends Parser {
 

@@ -6,13 +6,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.04.26.
- *
- * QueueManager implementation
+ * @since 2013.05.02.
  * 
+ * QueueManager implementation
  */
 public class QueueManager extends Observable implements QueueManagerService {
 
@@ -41,10 +39,20 @@ public class QueueManager extends Observable implements QueueManagerService {
 		return queue.poll();
 	}
 	
+	/**
+	 * getter of queue
+	 * 
+	 * @return queue
+	 */
 	public LinkedBlockingQueue<String> getQueue() {
 		return queue;
 	}
 
+	/**
+	 * setter of queue
+	 * 
+	 * @param queue
+	 */
 	public void setQueue(LinkedBlockingQueue<String> queue) {
 		this.queue = queue;
 	}

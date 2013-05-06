@@ -4,17 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -28,17 +23,11 @@ import org.xml.sax.SAXException;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.05.02.
+ * @since 2013.05.06.
  * 
  * downloads Wikipedia articles
  */
 public class WikiDownloader implements Observer {
-
-	private URL xsdURL = null;
-	
-	public WikiDownloader(URL url) {
-		xsdURL = url;
-	}
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -77,13 +66,24 @@ public class WikiDownloader implements Observer {
 			e.printStackTrace();
 		}
 
-		// validating XML with XSD
-		if (isValidReturnedXML(doc)) {
-			// TODO: continue
-			this.getRawWikitext(doc);
-		} else {
-			System.err.println("ERROR! XML schema is not valid!");
+		String wikiText = getRawWikitext(doc);
+		// if wikiText has been found
+		if (wikiText != null) {
+	        try {
+				SimpleParser parser = new SimpleParser();
+				System.out.println(parser.parse(wikiText));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 	}
 
 	/**
@@ -97,31 +97,6 @@ public class WikiDownloader implements Observer {
 		public WrongObserverException(String message) {
 			super(message);
 		}
-	}
-	
-	// TODO: sometimes wrong XSD
-	/**
-	 * check with xsd if downloaded xml is valid
-	 *  
-	 * @param doc xml to validate
-	 * @return true if xml is valid
-	 */
-	public boolean isValidReturnedXML(Document doc) {
-		Source xmlFile = new DOMSource(doc);
-		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		boolean ok = false;
-		try {
-			Schema schema = schemaFactory.newSchema(xsdURL);
-			Validator validator = schema.newValidator();
-			validator.validate(xmlFile);
-			ok = true;
-		} catch (SAXException e) {
-			System.err.println("ERROR! XML is invalid, reason: " + e.getLocalizedMessage());
-		} catch (IOException e) {
-			System.err.println("ERROR! XSD file for validation not found!");
-			e.printStackTrace();
-		}
-		return ok;
 	}
 	
 	/**
@@ -138,7 +113,12 @@ public class WikiDownloader implements Observer {
 		try {
 			// get node where the text is
 			Node wikitext = (Node) xpath.evaluate("//rev", doc, XPathConstants.NODE);
-			wikitextContent = wikitext.getTextContent();
+			if (wikitext != null) {
+				wikitextContent = wikitext.getTextContent();
+			} else {
+				System.err.println("ERROR! Could not find wikitext content in xml!");
+				return null;
+			}
 		} catch (XPathExpressionException e) {
 			System.err.println("ERROR! Could not find wikitext content!");
 			e.printStackTrace();

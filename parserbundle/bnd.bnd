@@ -4,10 +4,12 @@ Private-Package: wikiprocessor.parser,\
 	wikiprocessor.parser.service
 -resolve: auto
 Bundle-Activator: wikiprocessor.parser.SimpleParserActivator
--buildpath: hu.sztaki.sztakipediaparser,\
-	osgi.core
--runrequires: osgi.identity;filter:='(osgi.identity=hu.sztaki.sztakipediaparser)'
--runbundles: hu.sztaki.sztakipediaparser;version='[0.1.0,0.1.1)'
+-buildpath: osgi.core,\
+	sztakipediaparserbundle
 Bundle-Version: 1.0
 Export-Package: wikiprocessor.parser.service,\
 	wikiprocessor.parser
+Bundle-Name: SimpleParser Bundle
+
+-runrequires: osgi.identity;filter:='(osgi.identity=sztakipediaparserbundle)'
+-runbundles: sztakipediaparserbundle;version='[1.0.0,1.0.1)'

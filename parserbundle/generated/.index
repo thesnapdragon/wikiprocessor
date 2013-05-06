@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1367499493414' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1367848441090' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='parserbundle'/>
@@ -7,9 +7,9 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='9cc96bab3c090a07f690f88586882d8b909e80f9f9b7a947848401efe4b7bece'/>
+      <attribute name='osgi.content' value='1a529998ca03f2d6e77b62b493bd982885e0c16c7d33a43c2c34d79c2ab91a44'/>
       <attribute name='url' value='generated/parserbundle.jar'/>
-      <attribute name='size' type='Long' value='13699'/>
+      <attribute name='size' type='Long' value='12346'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>
@@ -31,32 +31,23 @@
       <attribute name='version' type='Version' value='1.0.0'/>
       <attribute name='bundle-symbolic-name' value='parserbundle'/>
       <attribute name='bundle-version' type='Version' value='1.0.0'/>
-      <directive name='uses' value='org.w3c.dom,org.osgi.framework,wikiprocessor.parser.service,hu.sztaki.sztakipediaparser.wiki.parser,hu.sztaki.sztakipediaparser.wiki.converter'/>
+      <directive name='uses' value='wikiprocessor.parser.service,hu.sztaki.sztakipediaparser.wiki.parser,hu.sztaki.sztakipediaparser.wiki.converter,org.osgi.framework,org.w3c.dom'/>
     </capability>
     <capability namespace='bndtools.workspace'>
       <attribute name='bndtools.workspace' value='file:/home/chef/prog'/>
       <attribute name='project.path' value='/parserbundle'/>
     </capability>
     <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(&amp;(osgi.wiring.package=hu.sztaki.sztakipediaparser.wiki.converter)(version&gt;=0.1.0)(!(version&gt;=1.0.0)))'/>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=hu.sztaki.sztakipediaparser.wiki.converter)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(&amp;(osgi.wiring.package=hu.sztaki.sztakipediaparser.wiki.parser)(version&gt;=0.1.0)(!(version&gt;=1.0.0)))'/>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=hu.sztaki.sztakipediaparser.wiki.parser)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(osgi.wiring.package=javax.xml.namespace)'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(osgi.wiring.package=javax.xml.parsers)'/>
-    </requirement>
-    <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(osgi.wiring.package=javax.xml.transform)'/>
-    </requirement>
-    <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(osgi.wiring.package=javax.xml.transform.dom)'/>
-    </requirement>
-    <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(osgi.wiring.package=javax.xml.validation)'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(osgi.wiring.package=javax.xml.xpath)'/>

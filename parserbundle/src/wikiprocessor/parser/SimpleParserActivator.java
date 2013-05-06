@@ -1,6 +1,5 @@
 package wikiprocessor.parser;
 
-import java.net.URL;
 import java.util.Hashtable;
 
 import org.osgi.framework.BundleActivator;
@@ -12,7 +11,7 @@ import wikiprocessor.parser.service.QueueManagerService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.04.26.
+ * @since 2013.05.06.
  *
  * Activator class for SztakipediaParser
  * 
@@ -30,8 +29,7 @@ public class SimpleParserActivator implements BundleActivator {
         properties.put("WikiProcessorModule", "QueueManagerService");
         QueueManager queuemanager = new QueueManager();
         // add observer to QueueManager
-        URL xsdURL = context.getBundle().getEntry("wikiprocessor/parser/wikiapi.xsd");
-        WikiDownloader wikidownloader = new WikiDownloader(xsdURL);
+        WikiDownloader wikidownloader = new WikiDownloader();
         queuemanager.addObserver(wikidownloader);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);

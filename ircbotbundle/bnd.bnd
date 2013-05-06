@@ -1,13 +1,14 @@
--runfw: org.apache.felix.framework;version='[4.0.3,4.0.3]'
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: OSGi/Minimum-1.2
 -buildpath: osgi.core,\
 	org.jibble.pircbot
 -runrequires: osgi.identity;filter:='(osgi.identity=org.jibble.pircbot)',\
 	osgi.identity;filter:='(osgi.identity=parserbundle)',\
-	osgi.identity;filter:='(osgi.identity=hu.sztaki.sztakipediaparser)'
+	osgi.identity;filter:='(osgi.identity=sztakipediaparserbundle)'
 -runbundles: org.jibble.pircbot;version='[3.0.0,3.0.1)',\
 	parserbundle;version=latest,\
-	hu.sztaki.sztakipediaparser
+	sztakipediaparserbundle
 Bundle-Activator: wikiprocessor.wikibot.WikiBotActivator
 Private-Package: wikiprocessor.wikibot
 Bundle-Version: 1.0
+Bundle-Name: WikiBot Bundle

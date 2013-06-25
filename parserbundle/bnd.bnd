@@ -1,15 +1,16 @@
--runfw: org.apache.felix.framework;version='[4.0.3,4.0.3]'
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: OSGi/Minimum-1.2
 Private-Package: wikiprocessor.parser,\
 	wikiprocessor.parser.service
--resolve: auto
 Bundle-Activator: wikiprocessor.parser.SimpleParserActivator
 -buildpath: osgi.core,\
-	sztakipediaparserbundle
+	sztakipediaparserbundle,\
+	databaseconnectorbundle;version=latest
 Bundle-Version: 1.0
 Export-Package: wikiprocessor.parser.service,\
 	wikiprocessor.parser
 Bundle-Name: SimpleParser Bundle
-
 -runrequires: osgi.identity;filter:='(osgi.identity=sztakipediaparserbundle)'
--runbundles: sztakipediaparserbundle;version='[1.0.0,1.0.1)'
+-runbundles: sztakipediaparserbundle;version='[1.0.0,1.0.1)',\
+	com.springsource.org.h2,\
+	databaseconnectorbundle;version=latest

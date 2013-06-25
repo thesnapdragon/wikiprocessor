@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1367848265627' name='Release' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1371649375336' name='Release' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='sztakipediaparserbundlemaker'/>
@@ -68,6 +68,281 @@
       <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
       <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.tags,hu.sztaki.sztakipediaparser.wiki.visitor'/>
     </capability>
+  </resource>
+  <resource>
+    <capability namespace='osgi.identity'>
+      <attribute name='osgi.identity' value='com.springsource.org.h2'/>
+      <attribute name='type' value='osgi.bundle'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.content'>
+      <attribute name='osgi.content' value='56132c1e68d4bce8afc6c5d717d2d986d58364e339d9b9a9d1f545e10b0118f5'/>
+      <attribute name='url' value='com.springsource.org.h2/com.springsource.org.h2-1.0.71.jar'/>
+      <attribute name='size' type='Long' value='1060309'/>
+      <attribute name='mime' value='application/vnd.osgi.bundle'/>
+    </capability>
+    <capability namespace='osgi.wiring.bundle'>
+      <attribute name='osgi.wiring.bundle' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.host'>
+      <attribute name='osgi.wiring.host' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.api'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.bnf'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.server.web'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.command'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command.ddl,org.h2.engine,org.h2.expression,org.h2.result,org.h2.util'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.command.ddl'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.command.dml,org.h2.engine,org.h2.expression,org.h2.index,org.h2.result,org.h2.schema,org.h2.table'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.command.dml'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.engine,org.h2.expression,org.h2.result,org.h2.schema,org.h2.store,org.h2.table,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.compress'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.constant'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.constraint'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.engine,org.h2.expression,org.h2.index,org.h2.result,org.h2.schema,org.h2.table'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.engine'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.api,org.h2.command,org.h2.expression,org.h2.jdbc,org.h2.log,org.h2.message,org.h2.result,org.h2.schema,org.h2.store,org.h2.table,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.expression'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.command.dml,org.h2.engine,org.h2.result,org.h2.schema,org.h2.table,org.h2.tools,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.fulltext'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.apache.lucene.index,org.h2.expression,org.h2.tools'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.index'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.engine,org.h2.expression,org.h2.result,org.h2.schema,org.h2.store,org.h2.table,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.jdbc'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.engine,org.h2.message,org.h2.result,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.jdbcx'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='javax.naming,javax.sql,javax.transaction.xa,org.h2.jdbc,org.h2.message'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.log'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.engine,org.h2.result,org.h2.store,org.h2.table,org.h2.util'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.message'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.jdbc,org.h2.util'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.result'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.engine,org.h2.expression,org.h2.store,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.schema'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.constraint,org.h2.engine,org.h2.expression,org.h2.index,org.h2.result,org.h2.table,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.security'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.store'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.server'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.server.ftp'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.store.fs'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.server.pg'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.server.web'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='javax.servlet,javax.servlet.http,org.h2.api,org.h2.bnf,org.h2.server'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.store'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.engine,org.h2.message,org.h2.store.fs,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.store.fs'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.table'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.command,org.h2.command.dml,org.h2.constraint,org.h2.engine,org.h2.expression,org.h2.index,org.h2.result,org.h2.schema,org.h2.store,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.tools'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.compress,org.h2.server,org.h2.store,org.h2.util,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.util'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='javax.sql,org.h2.jdbc,org.h2.store,org.h2.value'/>
+    </capability>
+    <capability namespace='osgi.wiring.package'>
+      <attribute name='osgi.wiring.package' value='org.h2.value'/>
+      <attribute name='version' type='Version' value='1.0.71'/>
+      <attribute name='bundle-symbolic-name' value='com.springsource.org.h2'/>
+      <attribute name='bundle-version' type='Version' value='1.0.71'/>
+      <directive name='uses' value='org.h2.engine,org.h2.jdbc,org.h2.store,org.h2.util'/>
+    </capability>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(osgi.wiring.package=javax.naming)'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(osgi.wiring.package=javax.naming.spi)'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(osgi.wiring.package=javax.net)'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(osgi.wiring.package=javax.net.ssl)'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=javax.servlet)(version&gt;=2.5.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=javax.servlet.http)(version&gt;=2.5.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(osgi.wiring.package=javax.sql)'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=javax.transaction.xa)(version&gt;=1.0.1)(!(version&gt;=2.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.analysis)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.analysis.standard)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.document)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.index)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.queryParser)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.apache.lucene.search)(version&gt;=2.3.0)(!(version&gt;=3.0.0)))'/>
+      <directive name='resolution' value='optional'/>
+    </requirement>
   </resource>
   <resource>
     <capability namespace='osgi.identity'>

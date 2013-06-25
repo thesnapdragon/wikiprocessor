@@ -19,6 +19,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import wikiprocessor.dbconnector.service.DBConnectorService;
+
 /**
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -28,6 +30,12 @@ import org.xml.sax.SAXException;
  * downloads Wikipedia articles
  */
 public class WikiDownloader implements Observer {
+	
+	private DBConnectorService database;
+	
+	public WikiDownloader(DBConnectorService db) {
+		this.database = db;
+	}
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -71,7 +79,9 @@ public class WikiDownloader implements Observer {
 		if (wikiText != null) {
 	        try {
 				SimpleParser parser = new SimpleParser();
-				System.out.println(parser.parse(wikiText));
+				String parsedText = parser.parse(wikiText);
+				database.insert(parsedText);
+//				System.out.println(parsedText);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

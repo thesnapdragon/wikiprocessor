@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1364406631149' name='Local' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1371643826182' name='Local' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='org.jibble.pircbot'/>
@@ -25,75 +25,6 @@
       <attribute name='version' type='Version' value='3.0.0'/>
       <attribute name='bundle-symbolic-name' value='org.jibble.pircbot'/>
       <attribute name='bundle-version' type='Version' value='3.0.0'/>
-    </capability>
-  </resource>
-  <resource>
-    <capability namespace='osgi.identity'>
-      <attribute name='osgi.identity' value='sztakipediaparserbundlemaker'/>
-      <attribute name='type' value='osgi.bundle'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-    </capability>
-    <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='fb0ef1a98f83cd3f703d0c1d2b0ddc6363dd5fd13471272a50907db9253f1b94'/>
-      <attribute name='url' value='sztakipediaparserbundlemaker/sztakipediaparserbundlemaker-0.1.0.jar'/>
-      <attribute name='size' type='Long' value='95988'/>
-      <attribute name='mime' value='application/vnd.osgi.bundle'/>
-    </capability>
-    <capability namespace='osgi.wiring.bundle'>
-      <attribute name='osgi.wiring.bundle' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-    </capability>
-    <capability namespace='osgi.wiring.host'>
-      <attribute name='osgi.wiring.host' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.localization'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.converter'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.tags'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.parser'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.converter'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.parser.cc'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.converter,hu.sztaki.sztakipediaparser.wiki.parser'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.tags'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.visitor'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.visitor'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.tags'/>
-    </capability>
-    <capability namespace='osgi.wiring.package'>
-      <attribute name='osgi.wiring.package' value='hu.sztaki.sztakipediaparser.wiki.visitor.html'/>
-      <attribute name='version' type='Version' value='0.1.0.1b'/>
-      <attribute name='bundle-symbolic-name' value='sztakipediaparserbundlemaker'/>
-      <attribute name='bundle-version' type='Version' value='0.1.0.1b'/>
-      <directive name='uses' value='hu.sztaki.sztakipediaparser.wiki.tags,hu.sztaki.sztakipediaparser.wiki.visitor'/>
     </capability>
   </resource>
 </repository>

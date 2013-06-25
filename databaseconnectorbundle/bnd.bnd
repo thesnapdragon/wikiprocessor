@@ -1,0 +1,13 @@
+Bundle-Activator: wikiprocessor.dbconnector.DBConnectorActivator
+Require-Bundle: com.springsource.org.h2
+Private-Package: wikiprocessor.dbconnector,\
+	wikiprocessor.dbconnector.service
+-buildpath: osgi.core,\
+	com.springsource.org.h2
+-runbundles: com.springsource.org.h2
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
+-runee: OSGi/Minimum-1.2
+Bundle-Name: Database Connector Bundle
+Export-Package: wikiprocessor.dbconnector,\
+	wikiprocessor.dbconnector.service
+Bundle-Version: 1.0

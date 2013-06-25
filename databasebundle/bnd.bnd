@@ -1,0 +1,10 @@
+-buildpath: com.springsource.org.h2,\
+	osgi.core
+Bundle-Activator: wikiprocessor.db.DBActivator
+Require-Bundle: com.springsource.org.h2
+Private-Package: wikiprocessor.db
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
+-runee: OSGi/Minimum-1.2
+-runbundles: com.springsource.org.h2
+Bundle-Name: Database Bundle
+Bundle-Version: 1.0

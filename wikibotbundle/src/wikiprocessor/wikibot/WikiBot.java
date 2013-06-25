@@ -24,22 +24,21 @@ import wikiprocessor.parser.service.QueueManagerService;
 public class WikiBot extends PircBot {
 
 	// IRC server
-	private String serverName;
+	private static final String SERVERNAME = "irc.wikimedia.org";
 	// IRC channel
-	private String channelName;
+	private static final String CHANNELNAME = "#en.wikipedia";
+	// IRC BOT name
+	private static final String BOTNAME = "WikiProcessorBot";
 	// QueueManager instance
 	private QueueManagerService queue = null;
 	
 	/**
 	 * WikiBot constructor
 	 * 
-	 * sets IRC datas, bot's name
+	 * sets bot's name, attaches QueueManager
 	 */
 	public WikiBot(QueueManagerService qms) {
-		// sets IRC parameters
-		serverName = "irc.wikimedia.org";
-		channelName = "#en.wikipedia";
-        setName("WikiProcessorBot");
+        setName(BOTNAME);
         // sets QueueManager instance
         queue = qms;
     }
@@ -72,24 +71,24 @@ public class WikiBot extends PircBot {
      */
 	public void start() {
         // Enable debugging output.
-		setVerbose(true);
+		setVerbose(false);
         
         // Connect to the IRC server.
         try {
-			this.connect(serverName);
+			this.connect(SERVERNAME);
 		} catch (NickAlreadyInUseException e) {
-			// TODO Auto-generated catch block
+			System.err.println("ERROR! IRC nick is already in use!");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("ERROR! Error while connecting to IRC server!");
 			e.printStackTrace();
 		} catch (IrcException e) {
-			// TODO Auto-generated catch block
+			System.err.println("ERROR! Error in IRC connection!");
 			e.printStackTrace();
 		}
 
         // Join the #en.wikipedia channel.
-        joinChannel(channelName);
+        joinChannel(CHANNELNAME);
 	}
     
 }

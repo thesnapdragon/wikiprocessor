@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
 
@@ -24,12 +25,18 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
  */
 public class DBConnectorActivator implements BundleActivator {
 
+	// constants for handling DB
 	private static final String DBURL = "jdbc:h2:tcp://localhost:9123/";
 	private static final String DBUSER = "wikiprocessor";
 	private static final String DBPASSWORD = "^tcp7yAFZ@PrZ)k-!3ug";
 	
+	// JDBC connection instance
 	public static Connection conn;
 	
+	/**
+	 * creates DB connection, DB admin user for WikiProcessor, and database table for articles
+	 * when everything is done, registers DB service
+	 */
 	@Override
 	public void start(BundleContext context) {
 		System.out.println("Starting DBConnector bundle.");
@@ -43,16 +50,16 @@ public class DBConnectorActivator implements BundleActivator {
 	        conn = DriverManager.getConnection(DBURL, prop);
 	        Statement stat = conn.createStatement();
 	       
-	        // creating a user and delete default
+	        // creating a user and deleting default
 	        stat.execute("CREATE USER IF NOT EXISTS " + DBUSER + " PASSWORD '" + DBPASSWORD + "' ADMIN");
 	        stat.execute("DROP USER IF EXISTS SA");
 	        // creating articles table
 	        stat.execute("CREATE TABLE IF NOT EXISTS articles(text CLOB, length INT)");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.err.println("ERROR! Can not found H2 JDBC driver!");
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("ERROR! Error while creating DB user, or deleting default (SA) user, or creating Articles table!");
 			e.printStackTrace();
 		}
 		
@@ -63,9 +70,14 @@ public class DBConnectorActivator implements BundleActivator {
         context.registerService(DBConnectorService.class.getName(), new DBConnector(), properties);
 	}
 
+	/**
+	 * unregisters DB service
+	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("Stopping DBConnector bundle.");		
+		System.out.println("Stopping DBConnector bundle.");
+		ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
+		context.ungetService(dbsref);
 	}
 
 }

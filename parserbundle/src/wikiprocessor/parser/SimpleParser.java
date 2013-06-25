@@ -18,14 +18,29 @@ import java.util.Locale;
  */
 public class SimpleParser extends Parser {
 
+	/**
+	 * original constructor (wrapped)
+	 * @param interpreter wikiText interpreter
+	 */
 	public SimpleParser(IWikiInterpreter interpreter) {
 		super(interpreter);
 	}
 	
+	/**
+	 * wrapper constructor: creates a new parser, that can parse wikiText to plain text
+	 * @throws MalformedURLException
+	 * @throws NoSuchAlgorithmException
+	 * @throws IOException
+	 */
 	public SimpleParser() throws MalformedURLException, NoSuchAlgorithmException, IOException {
 		this(new PlainWikiInterpreter(new Locale("en")));
 	}
 
+	/**
+	 * parsing wikiText to plain text
+	 * @param wikiText wikiText to parse
+	 * @return parsedText
+	 */
 	public String parse(String wikiText) {
 		String parsedText = super.parse(wikiText);
 		return parsedText;

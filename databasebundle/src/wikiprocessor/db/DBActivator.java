@@ -16,19 +16,27 @@ import org.osgi.framework.BundleContext;
  */
 public class DBActivator implements BundleActivator {
 
+	// DB location
 	private static final String BASEDIR = "/tmp/wikiprocessor/test";
 	
+	// DB server instance
+	private Server server;
+	
+	/**
+	 * starts H2 database with specified options
+	 */
 	@Override
 	public void start(BundleContext arg0) throws Exception {
 		System.out.println("Starting DB bundle.");
 		// starting TCP server with specified TCP port and DB location
-		Server server = Server.createTcpServer(new String[]{"-tcpPort" , "9123" , "-tcpAllowOthers", "-baseDir", BASEDIR});
+		server = Server.createTcpServer(new String[]{"-tcpPort" , "9123" , "-tcpAllowOthers", "-baseDir", BASEDIR});
 		server.start();
 	}
 
 	@Override
 	public void stop(BundleContext arg0) throws Exception {
 		System.out.println("Stopping DB bundle.");
+		server.stop();
 	}
 
 }

@@ -31,8 +31,13 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
  */
 public class WikiDownloader implements Observer {
 	
+	// DB bundle's service
 	private DBConnectorService database;
 	
+	/**
+	 * stores DB bundle's interface
+	 * @param db DB bundle's service instance
+	 */
 	public WikiDownloader(DBConnectorService db) {
 		this.database = db;
 	}
@@ -78,22 +83,22 @@ public class WikiDownloader implements Observer {
 		// if wikiText has been found
 		if (wikiText != null) {
 	        try {
+	        	// parsing wikiText
 				SimpleParser parser = new SimpleParser();
 				String parsedText = parser.parse(wikiText);
+				// adding parsedText to database bundle
 				database.insert(parsedText);
-//				System.out.println(parsedText);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
+				System.err.println("ERROR! Error while parsing wikiText!");
 				e.printStackTrace();
 			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
+				System.err.println("ERROR! Can not parse wikiText!");
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.err.println("ERROR! Error while parsing wikiText!");
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**

@@ -12,11 +12,11 @@ import java.util.Locale;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.04.26.
+ * @since 2013.07.08.
  *
  * QueueManager implementation
  */
-public class SimpleParser extends Parser {
+public class SimpleParser extends Parser implements WikiParser {
 
 	/**
 	 * original constructor (wrapped)

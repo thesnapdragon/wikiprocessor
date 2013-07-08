@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,7 +24,7 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.05.06.
+ * @since 2013.07.08.
  * 
  * downloads Wikipedia articles
  */
@@ -82,22 +81,12 @@ public class WikiDownloader implements Observer {
 		String wikiText = getRawWikitext(doc);
 		// if wikiText has been found
 		if (wikiText != null) {
-	        try {
-	        	// parsing wikiText
-				SimpleParser parser = new SimpleParser();
-				String parsedText = parser.parse(wikiText);
-				// adding parsedText to database bundle
-				database.insert(parsedText);
-			} catch (MalformedURLException e) {
-				System.err.println("ERROR! Error while parsing wikiText!");
-				e.printStackTrace();
-			} catch (NoSuchAlgorithmException e) {
-				System.err.println("ERROR! Can not parse wikiText!");
-				e.printStackTrace();
-			} catch (IOException e) {
-				System.err.println("ERROR! Error while parsing wikiText!");
-				e.printStackTrace();
-			}
+	        // parsing wikiText
+//				WikiParser parser = new SimpleParser();
+			WikiParser parser = new DumbRegexWikiParser();
+			String parsedText = parser.parse(wikiText);
+			// adding parsedText to database bundle
+			database.insert(parsedText);
 		}
 	}
 

@@ -2,7 +2,7 @@
 -runee: OSGi/Minimum-1.2
 Private-Package: wikiprocessor.parser,\
 	wikiprocessor.parser.service
-Bundle-Activator: wikiprocessor.parser.SimpleParserActivator
+Bundle-Activator: wikiprocessor.parser.ParserActivator
 -buildpath: osgi.core,\
 	sztakipediaparserbundle,\
 	databaseconnectorbundle;version=latest,\
@@ -10,7 +10,7 @@ Bundle-Activator: wikiprocessor.parser.SimpleParserActivator
 Bundle-Version: 1.0
 Export-Package: wikiprocessor.parser.service,\
 	wikiprocessor.parser
-Bundle-Name: SimpleParser Bundle
+Bundle-Name: Parser Bundle
 -runrequires: osgi.identity;filter:='(osgi.identity=sztakipediaparserbundle)'
 -runproperties: log4j.configuration=/home/chef/log4j.properties
 -runbundles: sztakipediaparserbundle;version='[1.0.0,1.0.1)',\

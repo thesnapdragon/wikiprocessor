@@ -24,7 +24,7 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.08.
+ * @since 2013.07.10.
  * 
  * downloads Wikipedia articles
  */
@@ -51,7 +51,7 @@ public class WikiDownloader implements Observer {
 			try {
 				throw new WrongObserverException();
 			} catch (WrongObserverException e) {
-				System.out.println("ERROR! Could not find QueueManager instance in OSGi pool!");
+				ParserActivator.logger.error("Could not find QueueManager instance in OSGi pool!");
 				e.printStackTrace();
 			}
 		}
@@ -65,20 +65,25 @@ public class WikiDownloader implements Observer {
 			InputStream stream = url.openStream();
 			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
 		} catch (MalformedURLException e) {
-			System.err.println("ERROR! Can not download XML file!");
+			ParserActivator.logger.warn("Can not download XML file!");
 			e.printStackTrace();
 		} catch (SAXException e) {
-			System.err.println("ERROR! Can not parse downloaded XML!");
+			ParserActivator.logger.warn("Can not parse downloaded XML!");
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			System.err.println("ERROR! Can not parse downloaded XML!");
+			ParserActivator.logger.warn("Error by configuring parser!");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.err.println("ERROR! Error while downloading XML!");
+			ParserActivator.logger.warn("Error in connection while downloading XML!");
 			e.printStackTrace();
 		}
 
-		String wikiText = getRawWikitext(doc);
+		// don not extract article's text if the article was not downloaded 
+		String wikiText = null;
+		if (doc != null) {
+			wikiText = getRawWikitext(doc);
+		}
+		
 		// if wikiText has been found
 		if (wikiText != null) {
 	        // parsing wikiText
@@ -120,11 +125,11 @@ public class WikiDownloader implements Observer {
 			if (wikitext != null) {
 				wikitextContent = wikitext.getTextContent();
 			} else {
-				System.err.println("ERROR! Could not find wikitext content in xml!");
+				ParserActivator.logger.warn("Could not find wikitext content in xml!");
 				return null;
 			}
 		} catch (XPathExpressionException e) {
-			System.err.println("ERROR! Could not find wikitext content!");
+			ParserActivator.logger.warn("Could not find wikitext content!");
 			e.printStackTrace();
 		}
 		return wikitextContent;

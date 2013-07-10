@@ -31,7 +31,7 @@ public class DBConnectorActivator implements BundleActivator {
 	private static final String DB_CONNECTIONSTRING = "wikiprocessor.dbactivator.connectionstring";
 	
 	// logger instance
-	private static LoggerService logger;
+	public static LoggerService logger;
 	
 	// JDBC connection instance
 	public static Connection conn;
@@ -45,7 +45,6 @@ public class DBConnectorActivator implements BundleActivator {
 		// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
-        logger.debug("Starting DBConnector bundle.");
 		
 		try {
 			// creating connection
@@ -57,6 +56,7 @@ public class DBConnectorActivator implements BundleActivator {
 			String connstring = context.getProperty(DB_CONNECTIONSTRING);
 			if (connstring == null || connstring.isEmpty()) {
 				System.err.println("WARNING! Can not find DB's connection string property, using default value!");
+				logger.warn("Can not find DB's connection string property, using default value!");
 				// default value
 				connstring = "jdbc:h2:tcp://localhost:9123/";
 			}
@@ -69,10 +69,10 @@ public class DBConnectorActivator implements BundleActivator {
 	        // creating articles table
 	        stat.execute("CREATE TABLE IF NOT EXISTS articles(text CLOB, length INT)");
 		} catch (ClassNotFoundException e) {
-			System.err.println("ERROR! Can not found H2 JDBC driver!");
+			logger.error("Can not found H2 JDBC driver!");
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.err.println("ERROR! Error while creating DB user, or deleting default (SA) user, or creating Articles table!");
+			logger.error("Error while creating DB user, or deleting default (SA) user, or creating Articles table!");
 			e.printStackTrace();
 		}
 		
@@ -81,6 +81,8 @@ public class DBConnectorActivator implements BundleActivator {
         properties.put("WikiProcessorModule", "DBConnectorService");
         // register service
         context.registerService(DBConnectorService.class.getName(), new DBConnector(), properties);
+        
+        logger.debug("Started: DBConnector bundle.");
 	}
 
 	/**
@@ -88,7 +90,7 @@ public class DBConnectorActivator implements BundleActivator {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		logger.debug("Stopping DBConnector bundle.");
+		logger.debug("Stopped: DBConnector bundle.");
 		ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
 		context.ungetService(dbsref);
 	}

@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import wikiprocessor.dbconnector.service.DBConnectorService;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.06.25.
+ * @since 2013.07.10.
  *
  * DBConnector implementation
  * 
@@ -37,8 +36,9 @@ public class DBConnector implements DBConnectorService {
 			// second parameter is length of article's text (INT)
 			ps.setInt(2, text.length());
 			ps.execute();
+			DBConnectorActivator.logger.trace("Article inserted!");
 		} catch (SQLException e) {
-			System.err.println("ERROR! Can not insert into H2 database!");
+			DBConnectorActivator.logger.error("Can not insert into H2 database!");
 			e.printStackTrace();
 		}
 	}

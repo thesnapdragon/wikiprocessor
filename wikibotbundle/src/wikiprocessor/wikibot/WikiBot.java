@@ -12,10 +12,9 @@ import org.jibble.pircbot.PircBot;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.04.25.
+ * @since 2013.07.10.
  *
  * WikiBot
  * 
@@ -28,7 +27,7 @@ public class WikiBot extends PircBot {
 	// IRC channel
 	private static final String CHANNELNAME = "#en.wikipedia";
 	// IRC BOT name
-	private static final String BOTNAME = "WikiProcessorBot2";
+	private static final String BOTNAME = "WikiProcessorBot";
 	// QueueManager instance
 	private QueueManagerService queue = null;
 	
@@ -77,13 +76,13 @@ public class WikiBot extends PircBot {
         try {
 			this.connect(SERVERNAME);
 		} catch (NickAlreadyInUseException e) {
-			System.err.println("ERROR! IRC nick is already in use!");
+			WikiBotActivator.logger.error("IRC nick is already in use!");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.err.println("ERROR! Error while connecting to IRC server!");
+			WikiBotActivator.logger.error("Error while connecting to IRC server!");
 			e.printStackTrace();
 		} catch (IrcException e) {
-			System.err.println("ERROR! Error in IRC connection!");
+			WikiBotActivator.logger.error("Error in IRC connection!");
 			e.printStackTrace();
 		}
 

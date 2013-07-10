@@ -19,10 +19,10 @@ import wikiprocessor.parser.service.QueueManagerService;
  * 
  * manages Parser's lifecycle
  */
-public class SimpleParserActivator implements BundleActivator {
+public class ParserActivator implements BundleActivator {
 	
 	// logger instance
-	private static LoggerService logger;
+	public static LoggerService logger;
 	
 	/**
 	 * starts Parser
@@ -31,13 +31,12 @@ public class SimpleParserActivator implements BundleActivator {
     	// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
-        logger.debug("Starting parser bundle.");
         
         // create service properties
         Hashtable<String, String> properties = new Hashtable<String, String>();
         properties.put("WikiProcessorModule", "QueueManagerService");
         QueueManager queuemanager = new QueueManager();
-        
+
         // gets DBConnector instance
         ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
         DBConnectorService database = (DBConnectorService) context.getService(dbsref);
@@ -47,12 +46,14 @@ public class SimpleParserActivator implements BundleActivator {
         queuemanager.addObserver(wikidownloader);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);
+        
+        logger.debug("Started: Parser bundle.");
     }
 
     /**
      * stops Parser
      */
     public void stop(BundleContext context){
-        logger.debug("Stopping parser bundle.");
+        logger.debug("Stopped: Parser bundle.");
     }
 }

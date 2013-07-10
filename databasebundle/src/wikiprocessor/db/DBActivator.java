@@ -27,8 +27,10 @@ public class DBActivator implements BundleActivator {
 		System.out.println("Starting DB bundle.");
 		// getting basedir property from Felix
 		String basedir = arg0.getProperty("wikiprocessor.dbactivator.basedir");
-		if (basedir.isEmpty() || basedir.equals(null)) {
-			System.err.println("ERROR! Can not find DB's basedir property!");
+		if (basedir == null || basedir.isEmpty()) {
+			System.err.println("WARNING! Can not find DB basedir, using default value!");
+			// default value
+			basedir = "/opt/wikiprocessor/db/test";
 		}
 		// starting TCP server with specified TCP port and DB location
 		server = Server.createTcpServer(new String[]{"-tcpPort" , "9123" , "-tcpAllowOthers", "-baseDir", basedir});

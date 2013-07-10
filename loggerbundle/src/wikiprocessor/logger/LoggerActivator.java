@@ -45,12 +45,12 @@ public class LoggerActivator implements BundleActivator, LoggerService {
         // register service
         context.registerService(LoggerService.class.getName(), this, properties);
         
-        logger.debug("Starting logger bundle.");
+        logger.debug("Started: Logger bundle.");
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		logger.debug("Stopping logger bundle.");
+		logger.debug("Stopped: Logger bundle.");
 	}
 
 	@Override

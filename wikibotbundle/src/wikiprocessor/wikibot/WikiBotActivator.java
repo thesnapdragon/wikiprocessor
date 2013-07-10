@@ -19,7 +19,7 @@ import wikiprocessor.parser.service.QueueManagerService;
 public class WikiBotActivator implements BundleActivator {
 	
 	// logger instance
-	private static LoggerService logger;
+	public static LoggerService logger;
 	
 	/**
 	 * starts WikiBot
@@ -28,19 +28,21 @@ public class WikiBotActivator implements BundleActivator {
     	// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
-        logger.debug("Starting IRC bot bundle.");      
+              
         // gets QueueManager instance
         ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
         QueueManagerService queue = (QueueManagerService) context.getService(qmsref);
         // starting bot
         WikiBot bot = new WikiBot(queue);
         bot.start();
+        
+        logger.debug("Started: IRC bot bundle.");
     }
 
     /**
      * stops WikiBot
      */
     public void stop(BundleContext context){
-        logger.debug("Stopping IRC bot bundle.");
+        logger.debug("Stopped: IRC bot bundle.");
     }
 }

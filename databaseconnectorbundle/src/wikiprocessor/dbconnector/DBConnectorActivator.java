@@ -12,12 +12,12 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
+import wikiprocessor.logger.service.LoggerService;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.06.25.
+ * @since 2013.07.10.
  *
  * Activator class for DBConnector
  * 
@@ -26,9 +26,12 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
 public class DBConnectorActivator implements BundleActivator {
 
 	// constants for handling DB
-	private static final String DBURL = "jdbc:h2:tcp://localhost:9123/";
 	private static final String DBUSER = "wikiprocessor";
 	private static final String DBPASSWORD = "^tcp7yAFZ@PrZ)k-!3ug";
+	private static final String DB_CONNECTIONSTRING = "wikiprocessor.dbactivator.connectionstring";
+	
+	// logger instance
+	private static LoggerService logger;
 	
 	// JDBC connection instance
 	public static Connection conn;
@@ -39,7 +42,10 @@ public class DBConnectorActivator implements BundleActivator {
 	 */
 	@Override
 	public void start(BundleContext context) {
-		System.out.println("Starting DBConnector bundle.");
+		// gets Logger instance
+        ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
+        logger = (LoggerService) context.getService(logsref);
+        logger.debug("Starting DBConnector bundle.");
 		
 		try {
 			// creating connection
@@ -47,7 +53,14 @@ public class DBConnectorActivator implements BundleActivator {
 			Properties prop = new Properties();
 			prop.put("user", DBUSER);
 			prop.put("password", DBPASSWORD);
-	        conn = DriverManager.getConnection(DBURL, prop);
+			// getting connection string property from Felix
+			String connstring = context.getProperty(DB_CONNECTIONSTRING);
+			if (connstring == null || connstring.isEmpty()) {
+				System.err.println("WARNING! Can not find DB's connection string property, using default value!");
+				// default value
+				connstring = "jdbc:h2:tcp://localhost:9123/";
+			}
+	        conn = DriverManager.getConnection(connstring, prop);
 	        Statement stat = conn.createStatement();
 	       
 	        // creating a user and deleting default
@@ -75,7 +88,7 @@ public class DBConnectorActivator implements BundleActivator {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("Stopping DBConnector bundle.");
+		logger.debug("Stopping DBConnector bundle.");
 		ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
 		context.ungetService(dbsref);
 	}

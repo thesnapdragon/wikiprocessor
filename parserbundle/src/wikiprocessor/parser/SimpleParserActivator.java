@@ -7,12 +7,13 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
+import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.06.25.
+ * @since 2013.07.10.
  *
  * Activator class for SztakipediaParser
  * 
@@ -20,11 +21,18 @@ import wikiprocessor.parser.service.QueueManagerService;
  */
 public class SimpleParserActivator implements BundleActivator {
 	
+	// logger instance
+	private static LoggerService logger;
+	
 	/**
 	 * starts Parser
 	 */
     public void start(BundleContext context){
-        System.out.println("Starting parser bundle.");
+    	// gets Logger instance
+        ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
+        logger = (LoggerService) context.getService(logsref);
+        logger.debug("Starting parser bundle.");
+        
         // create service properties
         Hashtable<String, String> properties = new Hashtable<String, String>();
         properties.put("WikiProcessorModule", "QueueManagerService");
@@ -45,6 +53,6 @@ public class SimpleParserActivator implements BundleActivator {
      * stops Parser
      */
     public void stop(BundleContext context){
-        System.out.println("Stopping parser bundle.");
+        logger.debug("Stopping parser bundle.");
     }
 }

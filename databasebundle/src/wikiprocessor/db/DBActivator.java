@@ -8,16 +8,13 @@ import org.osgi.framework.BundleContext;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.06.25.
+ * @since 2013.07.08.
  *
  * Activator class for H2 Database
  * 
  * manages DB's lifecycle
  */
 public class DBActivator implements BundleActivator {
-
-	// DB location
-	private static final String BASEDIR = "/tmp/wikiprocessor/test";
 	
 	// DB server instance
 	private Server server;
@@ -28,8 +25,13 @@ public class DBActivator implements BundleActivator {
 	@Override
 	public void start(BundleContext arg0) throws Exception {
 		System.out.println("Starting DB bundle.");
+		// getting basedir property from Felix
+		String basedir = arg0.getProperty("wikiprocessor.dbactivator.basedir");
+		if (basedir.isEmpty() || basedir.equals(null)) {
+			System.err.println("ERROR! Can not find DB's basedir property!");
+		}
 		// starting TCP server with specified TCP port and DB location
-		server = Server.createTcpServer(new String[]{"-tcpPort" , "9123" , "-tcpAllowOthers", "-baseDir", BASEDIR});
+		server = Server.createTcpServer(new String[]{"-tcpPort" , "9123" , "-tcpAllowOthers", "-baseDir", basedir});
 		server.start();
 	}
 

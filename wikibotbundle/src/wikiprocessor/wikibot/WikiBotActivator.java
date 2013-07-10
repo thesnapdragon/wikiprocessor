@@ -4,13 +4,13 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
- * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.04.25.
+ * @since 2013.07.10.
  *
  * Activator class for WikiBot
  * 
@@ -18,11 +18,17 @@ import wikiprocessor.parser.service.QueueManagerService;
  */
 public class WikiBotActivator implements BundleActivator {
 	
+	// logger instance
+	private static LoggerService logger;
+	
 	/**
 	 * starts WikiBot
 	 */
     public void start(BundleContext context){
-        System.out.println("Starting IRC bot bundle.");        
+    	// gets Logger instance
+        ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
+        logger = (LoggerService) context.getService(logsref);
+        logger.debug("Starting IRC bot bundle.");      
         // gets QueueManager instance
         ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
         QueueManagerService queue = (QueueManagerService) context.getService(qmsref);
@@ -35,6 +41,6 @@ public class WikiBotActivator implements BundleActivator {
      * stops WikiBot
      */
     public void stop(BundleContext context){
-        System.out.println("Stopping IRC bot bundle.");
+        logger.debug("Stopping IRC bot bundle.");
     }
 }

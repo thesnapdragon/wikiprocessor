@@ -28,7 +28,7 @@ public class WikiBot extends PircBot {
 	// IRC channel
 	private static final String CHANNELNAME = "#en.wikipedia";
 	// IRC BOT name
-	private static final String BOTNAME = "WikiProcessorBot";
+	private static final String BOTNAME = "WikiProcessorBot2";
 	// QueueManager instance
 	private QueueManagerService queue = null;
 	
@@ -70,10 +70,10 @@ public class WikiBot extends PircBot {
      * bot joins to IRC channel
      */
 	public void start() {
-        // Enable debugging output.
+        // disable debugging output.
 		setVerbose(false);
         
-        // Connect to the IRC server.
+        // connect to the IRC server.
         try {
 			this.connect(SERVERNAME);
 		} catch (NickAlreadyInUseException e) {

@@ -17,7 +17,7 @@ import wikiprocessor.logger.service.LoggerService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.10.
+ * @since 2013.07.17.
  *
  * Activator class for DBConnector
  * 
@@ -67,7 +67,7 @@ public class DBConnectorActivator implements BundleActivator {
 	        stat.execute("CREATE USER IF NOT EXISTS " + DBUSER + " PASSWORD '" + DBPASSWORD + "' ADMIN");
 	        stat.execute("DROP USER IF EXISTS SA");
 	        // creating articles table
-	        stat.execute("CREATE TABLE IF NOT EXISTS articles(text CLOB, length INT)");
+	        stat.execute("CREATE TABLE IF NOT EXISTS articles(text CLOB, length INT, title VARCHAR(255), inserted TIMESTAMP, revision INT)");
 		} catch (ClassNotFoundException e) {
 			logger.error("Can not found H2 JDBC driver!");
 			e.printStackTrace();

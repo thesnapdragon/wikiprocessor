@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1373455278755' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1374489459702' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='wikibotbundle'/>
@@ -7,9 +7,9 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='93ec094ea7367c16e2dbd5590d472be57212ea0741d74b0e95f8426f168f0187'/>
+      <attribute name='osgi.content' value='eb21ffab1480fdd974f14e6c78e2de955d388bad81ec1f0279419ca742d11060'/>
       <attribute name='url' value='generated/wikibotbundle.jar'/>
-      <attribute name='size' type='Long' value='6077'/>
+      <attribute name='size' type='Long' value='6611'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>
@@ -32,6 +32,9 @@
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(&amp;(osgi.wiring.package=wikiprocessor.logger.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=wikiprocessor.logger.util)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(&amp;(osgi.wiring.package=wikiprocessor.parser.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>

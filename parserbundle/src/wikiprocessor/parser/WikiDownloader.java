@@ -2,6 +2,7 @@ package wikiprocessor.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Observable;
@@ -9,6 +10,11 @@ import java.util.Observer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -19,12 +25,13 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
+import wikiprocessor.logger.util.Article;
 
 /**
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.10.
+ * @since 2013.07.17.
  * 
  * downloads Wikipedia articles
  */
@@ -58,7 +65,9 @@ public class WikiDownloader implements Observer {
 		
 		// downloading xml through WikipediaAPI
 		String queryurl = "http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&titles=";
-		queryurl += queuemanager.pollFromQueue().replace(" ", "_");
+		Article article = queuemanager.pollFromQueue();
+		String articleTitle = article.getTitle();
+		queryurl += articleTitle.replace(" ", "_");
 		Document doc = null;
 		try {
 			URL url = new URL(queryurl);
@@ -89,9 +98,10 @@ public class WikiDownloader implements Observer {
 	        // parsing wikiText
 //				WikiParser parser = new SimpleParser();
 			WikiParser parser = new DumbRegexWikiParser();
-			String parsedText = parser.parse(wikiText);
-			// adding parsedText to database bundle
-			database.insert(parsedText);
+			article.setText(parser.parse(wikiText));
+			ParserActivator.logger.trace(String.valueOf(article.getRevision()));
+			// adding parsedText and article's title to database bundle
+			database.insert(article);
 		}
 	}
 
@@ -117,7 +127,7 @@ public class WikiDownloader implements Observer {
 	public String getRawWikitext(Document doc) {
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xpath = factory.newXPath();
-		
+
 		String wikitextContent = null;		
 		try {
 			// get node where the text is
@@ -134,4 +144,23 @@ public class WikiDownloader implements Observer {
 		}
 		return wikitextContent;
 	}
+	
+	public static String docToString(Document doc) {
+	    try {
+	        StringWriter sw = new StringWriter();
+	        TransformerFactory tf = TransformerFactory.newInstance();
+	        Transformer transformer = tf.newTransformer();
+	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+	        transformer.transform(new DOMSource(doc), new StreamResult(sw));
+	        return sw.toString();
+	    } catch (Exception ex) {
+	        throw new RuntimeException("Error converting to String", ex);
+	    }
+	}
+
+
 }

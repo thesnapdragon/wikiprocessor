@@ -1,19 +1,21 @@
 package wikiprocessor.dbconnector.service;
 
+import wikiprocessor.logger.util.Article;
+
 /**
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.06.25.
+ * @since 2013.07.17.
  *
  * Interface for DBConnector
  * 
  */
 public interface DBConnectorService {
 	/**
-	 * insert text into database
+	 * insert article into database
 	 * 
-	 * @param text to insert
+	 * @param article to insert
 	 */
-	public void insert(String text);
+	public void insert(Article article);
 }

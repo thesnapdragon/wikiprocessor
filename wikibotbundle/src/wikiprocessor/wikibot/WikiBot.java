@@ -9,12 +9,13 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
 
+import wikiprocessor.logger.util.Article;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.10.
+ * @since 2013.07.17.
  *
  * WikiBot
  * 
@@ -27,7 +28,7 @@ public class WikiBot extends PircBot {
 	// IRC channel
 	private static final String CHANNELNAME = "#en.wikipedia";
 	// IRC BOT name
-	private static final String BOTNAME = "WikiProcessorBot";
+	private static final String BOTNAME = "WikiProcessorBot2";
 	// QueueManager instance
 	private QueueManagerService queue = null;
 	
@@ -51,15 +52,22 @@ public class WikiBot extends PircBot {
     public void onMessage(String channel, String sender, String login, String hostname, String message) {
     	// grep name of page from message
     	if (sender.equals("rc-pmtpa")) {
-			Pattern pattern = Pattern.compile("\\[\\[(.*)\\]\\]");
+			Pattern pattern = Pattern.compile("\\[\\[(.*)\\]\\].*http.*");
 			Matcher matcher = pattern.matcher(Colors.removeColors(message));
 			
 			if (matcher.find()) {
 				String content = matcher.group(1);
 				// ignore List, Category, Talk... containing colon
 				if (!(content.matches(".*:.*") || content.matches(".*List of.*"))) {
-					// add pagename to the parser's queue
-					queue.addToQueue(content);
+					// content matched grep revision number
+					Pattern revisionpattern = Pattern.compile(".*oldid=(\\d+).*");
+					Matcher revisionmatcher = revisionpattern.matcher(Colors.removeColors(message));
+					if (revisionmatcher.find()) {
+						int revision = Integer.parseInt(revisionmatcher.group(1));
+						// add pagename and revision to the parser's queue
+						WikiBotActivator.logger.trace("WikiBot grepped: " + content + " " + revision);
+						queue.addToQueue(new Article(content, revision));
+					}
 				}
 			}
 		}

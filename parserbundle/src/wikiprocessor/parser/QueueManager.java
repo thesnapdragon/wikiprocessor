@@ -3,26 +3,27 @@ package wikiprocessor.parser;
 import java.util.Observable;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import wikiprocessor.logger.util.Article;
 import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.05.02.
+ * @since 2013.07.17.
  * 
  * QueueManager implementation
  */
 public class QueueManager extends Observable implements QueueManagerService {
 
 	// threadsafe queue
-	private LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+	private LinkedBlockingQueue<Article> queue = new LinkedBlockingQueue<Article>();
 	
 	/**
 	 * add item to the queue
 	 * 
 	 * @param item item to add
 	 */
-	public void addToQueue(String item) {
+	public void addToQueue(Article item) {
 		// add item to the queue
 		queue.add(item);
 		// notifies WikiDownloader
@@ -35,7 +36,7 @@ public class QueueManager extends Observable implements QueueManagerService {
 	 * 
 	 * @return item
 	 */
-	public String pollFromQueue() {
+	public Article pollFromQueue() {
 		return queue.poll();
 	}
 	
@@ -44,7 +45,7 @@ public class QueueManager extends Observable implements QueueManagerService {
 	 * 
 	 * @return queue
 	 */
-	public LinkedBlockingQueue<String> getQueue() {
+	public LinkedBlockingQueue<Article> getQueue() {
 		return queue;
 	}
 
@@ -53,7 +54,7 @@ public class QueueManager extends Observable implements QueueManagerService {
 	 * 
 	 * @param queue
 	 */
-	public void setQueue(LinkedBlockingQueue<String> queue) {
+	public void setQueue(LinkedBlockingQueue<Article> queue) {
 		this.queue = queue;
 	}
 

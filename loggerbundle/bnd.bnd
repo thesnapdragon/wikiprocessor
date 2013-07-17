@@ -7,7 +7,8 @@ Bundle-Version: 1.0
 Private-Package: wikiprocessor.logger,\
 	wikiprocessor.logger.service
 Export-Package: wikiprocessor.logger.service,\
-	wikiprocessor.logger
+	wikiprocessor.logger,\
+	wikiprocessor.logger.util
 Bundle-Activator: wikiprocessor.logger.LoggerActivator
 Bundle-Name: Logger Bundle
 -runproperties: log4j.configuration=/home/chef/log4j.properties

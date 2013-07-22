@@ -17,7 +17,7 @@ import wikiprocessor.logger.service.LoggerService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.17.
+ * @since 2013.07.22.
  *
  * Activator class for DBConnector
  * 
@@ -61,6 +61,7 @@ public class DBConnectorActivator implements BundleActivator {
 				connstring = "jdbc:h2:tcp://localhost:9123/";
 			}
 	        conn = DriverManager.getConnection(connstring, prop);
+	        conn.setAutoCommit(true);
 	        Statement stat = conn.createStatement();
 	       
 	        // creating a user and deleting default

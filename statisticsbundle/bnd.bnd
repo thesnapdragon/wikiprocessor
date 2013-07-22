@@ -1,0 +1,17 @@
+Bundle-Version: 1.0
+Bundle-Activator: wikiprocessor.statistics.StatisticsActivator
+Export-Package: wikiprocessor.statistics
+-buildpath: osgi.core,\
+	loggerbundle;version=latest,\
+	javax.servlet,\
+	org.eclipse.osgi,\
+	org.eclipse.equinox.http.jetty,\
+	org.apache.felix.http.jetty
+-runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
+-runee: OSGi/Minimum-1.0
+-runbundles: javax.servlet,\
+	log4j,\
+	loggerbundle;version=latest,\
+	org.apache.felix.http.jetty,\
+	org.eclipse.equinox.http.servlet,\
+	org.eclipse.equinox.http.jetty

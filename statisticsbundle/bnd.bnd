@@ -1,12 +1,15 @@
 Bundle-Version: 1.0
 Bundle-Activator: wikiprocessor.statistics.StatisticsActivator
-Export-Package: wikiprocessor.statistics
+Export-Package: wikiprocessor.statistics,\
+	wikiprocessor.statistics.data.service,\
+	wikiprocessor.statistics.data
 -buildpath: osgi.core,\
 	loggerbundle;version=latest,\
 	javax.servlet,\
 	org.eclipse.osgi,\
 	org.eclipse.equinox.http.jetty,\
-	org.apache.felix.http.jetty
+	org.apache.felix.http.jetty,\
+	com.google.gson
 -runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: OSGi/Minimum-1.0
 -runbundles: javax.servlet,\
@@ -14,4 +17,13 @@ Export-Package: wikiprocessor.statistics
 	loggerbundle;version=latest,\
 	org.apache.felix.http.jetty,\
 	org.eclipse.equinox.http.servlet,\
-	org.eclipse.equinox.http.jetty
+	org.eclipse.equinox.http.jetty,\
+	org.mortbay.jetty.server,\
+	org.mortbay.jetty.util,\
+	osgi.compendium,\
+	com.google.gson
+Bundle-Name: Statistics Bundle
+Private-Package: wikiprocessor.statistics,\
+	wikiprocessor.statistics.data,\
+	wikiprocessor.statistics.data.service,\
+	wikiprocessor.statistics.view

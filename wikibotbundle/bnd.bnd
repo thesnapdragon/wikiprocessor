@@ -13,4 +13,12 @@ Bundle-Name: WikiBot Bundle
 	com.springsource.org.h2,\
 	sztakipediaparserbundle,\
 	databaseconnectorbundle;version=latest,\
-	parserbundle;version=latest
+	org.mortbay.jetty.server,\
+	org.mortbay.jetty.util,\
+	org.eclipse.equinox.http.servlet,\
+	org.eclipse.equinox.http.jetty,\
+	osgi.compendium,\
+	statisticsbundle;version=latest,\
+	parserbundle;version=latest,\
+	javax.servlet,\
+	com.google.gson

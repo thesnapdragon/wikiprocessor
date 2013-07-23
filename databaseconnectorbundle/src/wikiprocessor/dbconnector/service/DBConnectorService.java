@@ -6,7 +6,7 @@ import wikiprocessor.logger.util.Article;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.22.
+ * @since 2013.07.23.
  *
  * Interface for DBConnector
  * 
@@ -24,9 +24,18 @@ public interface DBConnectorService {
 	 * 
 	 * @param title article's title
 	 * @param revision article's revision number
-	 * @return true if article's found, false if not
+	 * @return true if older article's found, false if not
 	 */
 	public boolean searchOlder(String title, int revision);
+	
+	/**
+	 * search articles by title
+	 * 
+	 * @param title article's title
+	 * @param revision article's revision number
+	 * @return true if newer article's found, false if not
+	 */
+	public boolean searchNewer(String title, int revision);
 	
 	/**
 	 * update article in database

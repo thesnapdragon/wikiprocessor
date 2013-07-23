@@ -9,6 +9,7 @@ import org.osgi.framework.ServiceReference;
 import wikiprocessor.dbconnector.service.DBConnectorService;
 import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.parser.service.QueueManagerService;
+import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -24,6 +25,9 @@ public class ParserActivator implements BundleActivator {
 	// logger instance
 	public static LoggerService logger;
 	
+	// statistics bundle unstance
+	public static StatisticsDataService statistics;
+	
 	/**
 	 * starts Parser
 	 */
@@ -31,6 +35,10 @@ public class ParserActivator implements BundleActivator {
     	// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
+        
+        // gets Logger instance
+        ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
+        statistics = (StatisticsDataService) context.getService(statsref);
         
         // create service properties
         Hashtable<String, String> properties = new Hashtable<String, String>();

@@ -31,7 +31,7 @@ import wikiprocessor.logger.util.Article;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.22.
+ * @since 2013.07.23.
  * 
  * downloads Wikipedia articles
  */
@@ -100,13 +100,20 @@ public class WikiDownloader implements Observer {
 			WikiParser parser = new DumbRegexWikiParser();
 			article.setText(parser.parse(wikiText));
 			
-			// check if in DB has older version
-			if (!database.searchOlder(article.getTitle(), article.getRevision())) {
-				// if not: insert
-				database.insert(article);
+			// if newer version is in the DB then do nothing
+			if (!database.searchNewer(article.getTitle(), article.getRevision())) {
+				// check if in DB has older version
+				if (!database.searchOlder(article.getTitle(), article.getRevision())) {
+					// if not: insert
+					database.insert(article);
+					ParserActivator.statistics.increaseInsertedArticlesCount();
+				} else {
+					// else: update
+					database.update(article);
+					ParserActivator.statistics.increaseUpdatedArticlesCount();
+				}
 			} else {
-				// else: update
-				database.update(article);
+				ParserActivator.statistics.increaseNotProcessedArticlesCount();
 			}
 		}
 	}

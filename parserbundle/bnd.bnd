@@ -6,7 +6,8 @@ Bundle-Activator: wikiprocessor.parser.ParserActivator
 -buildpath: osgi.core,\
 	sztakipediaparserbundle,\
 	databaseconnectorbundle;version=latest,\
-	loggerbundle;version=latest
+	loggerbundle;version=latest,\
+	statisticsbundle;version=latest
 Bundle-Version: 1.0
 Export-Package: wikiprocessor.parser.service,\
 	wikiprocessor.parser
@@ -17,4 +18,12 @@ Bundle-Name: Parser Bundle
 	com.springsource.org.h2,\
 	log4j,\
 	loggerbundle;version=latest,\
-	databaseconnectorbundle;version=latest
+	databaseconnectorbundle;version=latest,\
+	org.mortbay.jetty.util,\
+	org.mortbay.jetty.server,\
+	osgi.compendium,\
+	org.eclipse.equinox.http.servlet,\
+	org.eclipse.equinox.http.jetty,\
+	com.google.gson,\
+	statisticsbundle;version=latest,\
+	javax.servlet

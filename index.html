@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Wikiprocessor Statistics</title>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript">
+var statistics = null;
+var chart = {
+    chart: {
+        type: 'bar',
+        animation: false,
+        marginRight: 130,
+        marginBottom: 30
+    },
+    title: {
+        text: 'Wikiprocessor Statistics'
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Cikkek száma (darab)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' darab'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        },
+        series: {
+            animation: false
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -100,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: '#FFFFFF',
+        shadow: true
+    },
+    series: []
+};
+var isInit = true;
+
+Object.values = function (obj) {
+    var vals = [];
+    for( var key in obj ) {
+        if ( obj.hasOwnProperty(key) ) {
+            vals.push(obj[key]);
+        }
+    }
+    return vals;
+};
+
+function drawChart() {
+    if (isInit) {
+        for(var key in statistics) {
+            var serie = {};
+            serie["name"] = key;
+            serie["data"] = [];
+            chart.series.push(serie);
+        }
+        isInit = false;
+    }
+    chart.series.forEach(function(entry,index) {
+        entry.data = [statistics[entry.name]];
+    });
+    $('#container').highcharts(chart);
+};
+
+$(setInterval(function(){
+$.ajax({
+    dataType: "json",
+    url: "http://192.168.201.34:8080/api",
+    success: function(data) {
+        statistics = data.articlesData;
+        drawChart();
+    }
+})
+},3000));
+        </script>
+    </head>
+    <body>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+    </body>
+</html>

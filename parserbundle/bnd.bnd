@@ -1,7 +1,5 @@
 -runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: OSGi/Minimum-1.2
-Private-Package: wikiprocessor.parser,\
-	wikiprocessor.parser.service
 Bundle-Activator: wikiprocessor.parser.ParserActivator
 -buildpath: osgi.core,\
 	sztakipediaparserbundle,\
@@ -27,3 +25,5 @@ Bundle-Name: Parser Bundle
 	com.google.gson,\
 	statisticsbundle;version=latest,\
 	javax.servlet
+Private-Package: wikiprocessor.parser,\
+	wikiprocessor.parser.service

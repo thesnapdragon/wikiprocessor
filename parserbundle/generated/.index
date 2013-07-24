@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1374588233758' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1374671784058' name='parserbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='parserbundle'/>
@@ -7,9 +7,9 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='6cb99f35866a7cf095a0576499aa706e3db3a8319fbdcefddbfd3acd27e3355d'/>
+      <attribute name='osgi.content' value='0f0611a574bc23462eac0220f9f3088f3960ecde963dc8baef36990d1fe1b3dd'/>
       <attribute name='url' value='generated/parserbundle.jar'/>
-      <attribute name='size' type='Long' value='21848'/>
+      <attribute name='size' type='Long' value='21847'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>

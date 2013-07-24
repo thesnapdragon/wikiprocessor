@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -24,16 +25,17 @@ public class WikiprocessorAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<String, Integer> datasNow = new HashMap<String, Integer>();
-		datasNow.put("eltárolt cikkek száma", StatisticsActivator.statistics.getStoredArticlesCount());
-		datasNow.put("frissített cikkek száma", StatisticsActivator.statistics.getUpdatedArticlesCount());
-		datasNow.put("újonnan beillesztett cikkek száma", StatisticsActivator.statistics.getInsertedArticlesCount());
-		datasNow.put("nem feldolgozott cikkek száma", StatisticsActivator.statistics.getNotProcessedArticlesCount());
-
-		Gson gson = new GsonBuilder().create();
+		JsonObject json = new JsonObject();
+		JsonObject articlesData = new JsonObject();
+		articlesData.addProperty("eltárolt cikkek száma", StatisticsActivator.statistics.getStoredArticlesCount());
+		articlesData.addProperty("frissített cikkek száma", StatisticsActivator.statistics.getUpdatedArticlesCount());
+		articlesData.addProperty("újonnan beillesztett cikkek száma", StatisticsActivator.statistics.getInsertedArticlesCount());
+		articlesData.addProperty("nem feldolgozott cikkek száma", StatisticsActivator.statistics.getNotProcessedArticlesCount());
+		
+		json.add("articlesData", articlesData);
 		
 		resp.setContentType("application/json");
-		resp.getWriter().write(gson.toJson(datasNow));
+		resp.getWriter().write(json.toString());
 	}
 
 }

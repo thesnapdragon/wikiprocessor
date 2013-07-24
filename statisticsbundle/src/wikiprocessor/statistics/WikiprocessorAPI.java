@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import wikiprocessor.statistics.data.StatisticsData;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

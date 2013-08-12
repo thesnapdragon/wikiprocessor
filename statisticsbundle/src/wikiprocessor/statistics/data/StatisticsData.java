@@ -5,7 +5,7 @@ import wikiprocessor.statistics.data.service.StatisticsDataService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.09.
+ * @since 2013.07.29.
  *
  * Handling statistics datas
  */
@@ -14,13 +14,25 @@ public class StatisticsData implements StatisticsDataService {
 	private int updatedArticlesCount;
 	private int insertedArticlesCount;
 	private int notProcessedArticlesCount;
-	private int errorsCount;
+	
+	private int queueLength;
+	
+	private int errorLogCount;
+	private int warningLogCount;
+	private int traceLogCount;
+	private int debugLogCount;
 	
 	public StatisticsData() {
 		this.updatedArticlesCount = 0;
 		this.insertedArticlesCount = 0;
 		this.notProcessedArticlesCount = 0;
-		this.errorsCount = 0;
+
+		this.queueLength = 0;
+		
+		this.errorLogCount = 0;
+		this.warningLogCount = 0;
+		this.traceLogCount = 0;
+		this.debugLogCount = 0;
 	}
 
 	@Override
@@ -59,18 +71,58 @@ public class StatisticsData implements StatisticsDataService {
 	}
 
 	@Override
-	public int getErrorsCount() {
-		return errorsCount;
-	}
-
-	@Override
-	public void increaseErrorsCount() {
-		this.errorsCount++;
-	}
-
-	@Override
 	public int getQueueLength() {
-		return 0;
+		return queueLength;
+	}
+
+	@Override
+	public void increaseQueueLength() {
+		this.queueLength++;
+	}
+	
+	@Override
+	public void decreaseQueueLength() {
+		this.queueLength--;
+	}
+
+	@Override
+	public int getErrorLogCount() {
+		return errorLogCount;
+	}
+
+	@Override
+	public void increaseErrorLogCount() {
+		this.errorLogCount++;
+	}
+	
+	@Override
+	public int getWarningLogCount() {
+		return warningLogCount;
+	}
+
+	@Override
+	public void increaseWarningLogCount() {
+		this.warningLogCount++;
+	}
+	
+	@Override
+	public int getTraceLogCount() {
+		return traceLogCount;
+	}
+
+	@Override
+	public void increaseTraceLogCount() {
+		this.traceLogCount++;
+	}
+	
+	@Override
+	public int getDebugLogCount() {
+		return debugLogCount;
+	}
+
+	@Override
+	public void increaseDebugLogCount() {
+		this.debugLogCount++;
 	}
 
 }

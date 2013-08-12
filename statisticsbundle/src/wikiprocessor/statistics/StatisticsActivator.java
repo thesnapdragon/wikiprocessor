@@ -47,7 +47,7 @@ public class StatisticsActivator implements BundleActivator {
         // setting statistics file path 
 	    statisticsFilePath = context.getProperty(STATISTICS_FILEPATH_VARIABLE);
 	    if (statisticsFilePath == null || statisticsFilePath.isEmpty()) {
-			System.err.println("WARNING! Can not find statistics file path variable, using default value!");
+			logger.warn("Can not find statistics file path variable, using default value!");
 			// default value
 			statisticsFilePath = "/opt/wikiprocessor/web/index.html";
 		}

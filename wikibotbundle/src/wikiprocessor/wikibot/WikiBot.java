@@ -15,7 +15,7 @@ import wikiprocessor.parser.service.QueueManagerService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.24.
+ * @since 2013.07.29.
  *
  * WikiBot
  * 
@@ -81,7 +81,8 @@ public class WikiBot extends PircBot {
      */
     @Override
     protected void onQuit(String sourceNick, String sourceLogin, String sourceHostname, String reason) {
-    	WikiBotActivator.logger.warn("WikiBot quited!");
+    	WikiBotActivator.logger.warn("WikiBot quited! Reason: " + reason);
+    	WikiBotActivator.statistics.increaseWarningLogCount();
     }
     
     /**
@@ -90,6 +91,7 @@ public class WikiBot extends PircBot {
     @Override
     protected void onDisconnect() {
     	WikiBotActivator.logger.warn("WikiBot disconnected! Wait 1 minute to reconnect...");
+    	WikiBotActivator.statistics.increaseWarningLogCount();
     	connected = false;
     	while (connected == false) {
     		onError();
@@ -111,16 +113,19 @@ public class WikiBot extends PircBot {
 			connected = true;
 		} catch (NickAlreadyInUseException e) {
 			WikiBotActivator.logger.error("IRC nick is already in use!");
+			WikiBotActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 			if (connected) return;
 			onError();
 		} catch (IOException e) {
 			WikiBotActivator.logger.error("Error while connecting to IRC server!");
+			WikiBotActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 			if (connected) return;
 			onError();
 		} catch (IrcException e) {
 			WikiBotActivator.logger.error("Error in IRC connection!");
+			WikiBotActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 			if (connected) return;
 			onError();
@@ -136,9 +141,10 @@ public class WikiBot extends PircBot {
 	public void onError() {
 		try {
 			// wait 1 min
-			Thread.sleep(60000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			WikiBotActivator.logger.error("WikiBot's sleep has interrupted!");
+			WikiBotActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		start();

@@ -4,11 +4,20 @@ Private-Package: wikiprocessor.dbconnector,\
 	wikiprocessor.dbconnector.service
 -buildpath: osgi.core,\
 	com.springsource.org.h2,\
-	loggerbundle;version=latest
+	loggerbundle;version=latest,\
+	statisticsbundle;version=latest
 -runproperties: log4j.configuration=/home/chef/log4j.properties
 -runbundles: com.springsource.org.h2,\
 	loggerbundle;version=latest,\
-	log4j
+	log4j,\
+	statisticsbundle;version=latest,\
+	com.google.gson,\
+	javax.servlet,\
+	osgi.compendium,\
+	org.eclipse.equinox.http.jetty,\
+	org.eclipse.equinox.http.servlet,\
+	org.mortbay.jetty.util,\
+	org.mortbay.jetty.server
 -runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: OSGi/Minimum-1.2
 Bundle-Name: Database Connector Bundle

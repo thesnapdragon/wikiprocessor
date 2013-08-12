@@ -14,7 +14,7 @@ import wikiprocessor.statistics.data.service.StatisticsDataService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.10.
+ * @since 2013.07.29.
  *
  * Activator class for SztakipediaParser
  * 
@@ -36,7 +36,7 @@ public class ParserActivator implements BundleActivator {
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
         
-        // gets Logger instance
+        // gets Statistics instance
         ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
         statistics = (StatisticsDataService) context.getService(statsref);
         
@@ -50,12 +50,13 @@ public class ParserActivator implements BundleActivator {
         DBConnectorService database = (DBConnectorService) context.getService(dbsref);
         
         // add observer to QueueManager
-        WikiDownloader wikidownloader = new WikiDownloader(database);
-        queuemanager.addObserver(wikidownloader);
+        WikiObserver wikiObserver = new WikiObserver(database);
+        queuemanager.addObserver(wikiObserver);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);
         
         logger.debug("Started: Parser bundle.");
+        statistics.increaseDebugLogCount();
     }
 
     /**
@@ -63,5 +64,6 @@ public class ParserActivator implements BundleActivator {
      */
     public void stop(BundleContext context){
         logger.debug("Stopped: Parser bundle.");
+        statistics.increaseDebugLogCount();
     }
 }

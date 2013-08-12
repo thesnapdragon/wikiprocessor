@@ -1,16 +1,12 @@
 package wikiprocessor.statistics;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 /**
@@ -26,6 +22,8 @@ public class WikiprocessorAPI extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		JsonObject json = new JsonObject();
+		
+		// statistic datas about processing articles
 		JsonObject articlesData = new JsonObject();
 		articlesData.addProperty("eltárolt cikkek száma", StatisticsActivator.statistics.getStoredArticlesCount());
 		articlesData.addProperty("frissített cikkek száma", StatisticsActivator.statistics.getUpdatedArticlesCount());
@@ -33,6 +31,18 @@ public class WikiprocessorAPI extends HttpServlet {
 		articlesData.addProperty("nem feldolgozott cikkek száma", StatisticsActivator.statistics.getNotProcessedArticlesCount());
 		
 		json.add("articlesData", articlesData);
+		
+		// statistic datas about log messages
+		JsonObject logsData = new JsonObject();
+		logsData.addProperty("error üzenetek száma", StatisticsActivator.statistics.getErrorLogCount());
+		logsData.addProperty("warning üzenetek száma", StatisticsActivator.statistics.getWarningLogCount());
+		//logsData.addProperty("trace üzenetek száma", StatisticsActivator.statistics.getTraceLogCount());
+		logsData.addProperty("debug üzenetek száma", StatisticsActivator.statistics.getDebugLogCount());
+		
+		json.add("logsData", logsData);
+		
+		// statistic data about queuelength
+		json.addProperty("queuelength", StatisticsActivator.statistics.getQueueLength());
 		
 		resp.setContentType("application/json");
 		resp.getWriter().write(json.toString());

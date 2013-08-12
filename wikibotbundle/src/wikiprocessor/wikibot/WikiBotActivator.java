@@ -6,11 +6,12 @@ import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.parser.service.QueueManagerService;
+import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.17.
+ * @since 2013.07.29.
  *
  * Activator class for WikiBot
  * 
@@ -20,6 +21,10 @@ public class WikiBotActivator implements BundleActivator {
 	
 	// logger instance
 	public static LoggerService logger;
+	
+	// statistics bundle unstance
+	public static StatisticsDataService statistics;
+	
 	// Wikibot instance
 	private WikiBot bot;
 	
@@ -30,6 +35,10 @@ public class WikiBotActivator implements BundleActivator {
     	// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
+        
+        // gets Statistics instance
+        ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
+        statistics = (StatisticsDataService) context.getService(statsref);
               
         // gets QueueManager instance
         ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
@@ -39,6 +48,7 @@ public class WikiBotActivator implements BundleActivator {
         bot.start();
         
         logger.debug("Started: IRC bot bundle.");
+        statistics.increaseDebugLogCount();
     }
 
     /**
@@ -47,5 +57,6 @@ public class WikiBotActivator implements BundleActivator {
     public void stop(BundleContext context){
     	bot.disconnect();
         logger.debug("Stopped: IRC bot bundle.");
+        statistics.increaseDebugLogCount();
     }
 }

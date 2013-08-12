@@ -13,7 +13,7 @@ import wikiprocessor.logger.util.Article;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.23.
+ * @since 2013.07.29.
  *
  * DBConnector implementation
  * 
@@ -48,9 +48,12 @@ public class DBConnector implements DBConnectorService {
 			// fifth parameter is revisionnumber
 			ps.setInt(5, article.getRevision());			
 			ps.execute();
+			
 			DBConnectorActivator.logger.trace("Article inserted: " + article.getTitle());
+			DBConnectorActivator.statistics.increaseTraceLogCount();
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not insert into H2 database!");
+			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 	}
@@ -70,6 +73,7 @@ public class DBConnector implements DBConnectorService {
 			}
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not query H2 database!");
+			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		return false;
@@ -93,9 +97,12 @@ public class DBConnector implements DBConnectorService {
 			ps.setInt(4, article.getRevision());
 			ps.setString(5, article.getTitle());
 			ps.execute();
+			
 			DBConnectorActivator.logger.trace("Article updated: " + article.getTitle());
+			DBConnectorActivator.statistics.increaseTraceLogCount();
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not update article in H2 database!");
+			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}		
 	}
@@ -115,6 +122,7 @@ public class DBConnector implements DBConnectorService {
 			}
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not query H2 database!");
+			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		return false;

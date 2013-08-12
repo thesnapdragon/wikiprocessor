@@ -9,7 +9,7 @@ import wikiprocessor.parser.service.QueueManagerService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.17.
+ * @since 2013.08.12.
  * 
  * QueueManager implementation
  */
@@ -20,29 +20,28 @@ public class QueueManager extends Observable implements QueueManagerService {
 	
 	/**
 	 * add item to the queue
-	 * 
 	 * @param item item to add
 	 */
 	public void addToQueue(Article item) {
 		// add item to the queue
 		queue.add(item);
-		// notifies WikiDownloader
+		ParserActivator.statistics.increaseQueueLength();
+		// notifies WikiObserver
 		setChanged();
 		notifyObservers();
 	}
 	
 	/**
 	 * get item from queue
-	 * 
 	 * @return item
 	 */
 	public Article pollFromQueue() {
+		ParserActivator.statistics.decreaseQueueLength();
 		return queue.poll();
 	}
 	
 	/**
 	 * getter of queue
-	 * 
 	 * @return queue
 	 */
 	public LinkedBlockingQueue<Article> getQueue() {
@@ -51,11 +50,18 @@ public class QueueManager extends Observable implements QueueManagerService {
 
 	/**
 	 * setter of queue
-	 * 
 	 * @param queue
 	 */
 	public void setQueue(LinkedBlockingQueue<Article> queue) {
 		this.queue = queue;
+	}
+	
+	/**
+	 * getter of queue's size
+	 * @return queue's size
+	 */
+	public int getSize() {
+		return queue.size();
 	}
 
 }

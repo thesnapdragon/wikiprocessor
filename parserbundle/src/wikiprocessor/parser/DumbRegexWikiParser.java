@@ -18,7 +18,7 @@ public class DumbRegexWikiParser implements WikiParser {
      * @param wikiText The wikitext to parse
      * @return html based on wikitext
      */
-    public static String wikitext2html(String wikiText) {
+    public static String wikitext2html(String wikiText) throws Exception {
         String ret = wikiText;
 
 
@@ -380,10 +380,16 @@ public class DumbRegexWikiParser implements WikiParser {
 
     /**
      * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
-     * implements WikiParser interface
+     * implements WikiParser interface, catches all error
      */
 	@Override
 	public String parse(String wikiText) {
-		return wikitext2html(wikiText);
+		String parsed = null;
+		try {
+			parsed = wikitext2html(wikiText);
+		} catch (Exception e) {
+			ParserActivator.logger.warn("DumbRegexWikiParser error!");
+		}
+		return parsed;
 	}
 }

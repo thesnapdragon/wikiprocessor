@@ -29,7 +29,7 @@ import wikiprocessor.logger.util.Article;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.08.12.
+ * @since 2013.08.13.
  * 
  * Worker class to do time consuming jobs
  */
@@ -118,12 +118,12 @@ public class WikiWorker implements Runnable {
 				if (!database.searchNewer(article.getTitle(), article.getRevision())) {
 					
 			        // parsing wikiText
-//						WikiParser parser = new SimpleParser();
-					WikiParser parser = new DumbRegexWikiParser();
+//					WikiParser parser = new SimpleParser();
+//					WikiParser parser = new DumbRegexWikiParser();
+					WikiParser parser = new ParsoidParser();
 					
 					String parsedText = parser.parse(wikiText);
 					
-					// if parsed text is not empty
 					if (parsedText != null && !parsedText.isEmpty()) {
 						article.setText(parsedText);
 						

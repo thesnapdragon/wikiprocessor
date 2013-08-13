@@ -41,6 +41,7 @@ public class SimpleParser extends Parser implements WikiParser {
 	 * @param wikiText wikiText to parse
 	 * @return parsedText
 	 */
+	@Override
 	public String parse(String wikiText) {
 		String parsedText = super.parse(wikiText);
 		return parsedText;

@@ -22,11 +22,17 @@ import wikiprocessor.statistics.data.service.StatisticsDataService;
  */
 public class ParserActivator implements BundleActivator {
 	
+	// parser's connection url
+	private static final String PARSER_CONNECTIONSTRING = "wikiprocessor.parsoid.connectionstring";
+	
 	// logger instance
 	public static LoggerService logger;
 	
-	// statistics bundle unstance
+	// statistics bundle instance
 	public static StatisticsDataService statistics;
+	
+	// parsoid url address
+	public static String parsoidUrl = null;
 	
 	/**
 	 * starts Parser
@@ -54,6 +60,8 @@ public class ParserActivator implements BundleActivator {
         queuemanager.addObserver(wikiObserver);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);
+        
+        parsoidUrl = context.getProperty(PARSER_CONNECTIONSTRING);
         
         logger.debug("Started: Parser bundle.");
         statistics.increaseDebugLogCount();

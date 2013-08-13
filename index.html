@@ -18,6 +18,9 @@ var chart1 = {
     title: {
         text: 'Wikiprocessor Statistics'
     },
+    subtitle: {
+        text: 'Cikkek feldolgozása'          
+    },
     yAxis: {
         min: 0,
         title: {
@@ -46,7 +49,7 @@ var chart1 = {
         align: 'right',
         verticalAlign: 'top',
         x: -100,
-        y: 100,
+        y: 50,
         floating: true,
         borderWidth: 1,
         backgroundColor: '#FFFFFF',
@@ -55,18 +58,60 @@ var chart1 = {
     series: []
 };
 
-Object.values = function (obj) {
-    var vals = [];
-    for( var key in obj ) {
-        if ( obj.hasOwnProperty(key) ) {
-            vals.push(obj[key]);
+var chart2 = {
+    statistics: null,
+    isInit: true,
+    chart: {
+        type: 'bar',
+        animation: false,
+        marginRight: 130,
+        marginBottom: 30
+    },
+    title: {
+        text: 'Wikiprocessor Statistics'
+    },
+    subtitle: {
+        text: 'Hibák száma'          
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Log üzenetek száma (darab)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
         }
-    }
-    return vals;
+    },
+    tooltip: {
+        valueSuffix: ' darab'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        },
+        series: {
+            animation: false
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -100,
+        y: 50,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: '#FFFFFF',
+        shadow: true
+    },
+    series: []
 };
 
 function drawChart(place, chart) {
-    if (isInit) {
+    if (chart.isInit) {
         for(var key in chart.statistics) {
             var serie = {};
             serie["name"] = key;
@@ -81,24 +126,192 @@ function drawChart(place, chart) {
     $(place).highcharts(chart);
 };
 
-$(setInterval(function(){
+var chart3 = {
+    datas: [],
+    add: function(newData) {
+        var newItem = {};
+        if (chart3.datas.length > 0) {
+            var lastItem = chart3.datas.pop();
+            newItem.diff = newData-lastItem.data;
+            chart3.datas.push(lastItem);
+        }
+        newItem.data = newData;
+        var d = new Date();
+        newItem.time = d.getTime();
+        chart3.datas.push(newItem);
+    },
+    getSpeed: function() {
+        var sum = 0;          
+        chart3.datas.forEach(function(entry,index) {
+            var d = new Date();
+            if ((d.getTime()-entry.time) < 1000*60) {
+                if (index > 0) {
+                    sum += entry.diff;
+                }
+            }
+        });
+        return sum;      
+    }
+};
+
+var chart4 = {
+    title: {
+        text: 'Wikiprocessor Statistics'
+    },
+    subtitle: {
+        text: 'Queue hossza'
+    },
+    plotOptions: {
+        series: {
+            animation: false
+        },
+        area: {
+            marker: {
+                enabled: false
+            }
+        }
+    },
+series: [{
+        type: 'area',
+        name: 'Queue hossza',
+        data: []
+    }],
+    push: function(data) {
+        if (chart4.series[0].data.length > 100) {
+            chart4.series[0].data.shift();
+        } 
+        chart4.series[0].data.push(data);
+    }
+}; 
+
+$(function() {
+setInterval(function(){
 $.ajax({
     dataType: "json",
     url: "http://192.168.201.34:8080/api",
     success: function(data) {
         chart1.statistics = data.articlesData;
+        chart2.statistics = data.logsData;
+        chart3.add(data.articlesData["eltárolt cikkek száma"]);
+        chart4.push(data.queuelength);
         drawChart('#container1', chart1);
+        drawChart('#container2', chart2);
+        $('#container4').highcharts(chart4);
     }
-})
-},3000));
+    });
+},3000);
+
+$('#container3').highcharts({
+    chart: {
+        type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    title: {
+        text: 'Wikiprocessor Statistics'
+    },
+    subtitle: {
+        text: 'Feldolgozólánc sebessége'
+    },
+    pane: {
+        startAngle: -150,
+        endAngle: 150,
+        background: [{
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                    [0, '#FFF'],
+                    [1, '#333']
+                ]
+            },
+            borderWidth: 0,
+            outerRadius: '109%'
+        }, {
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                    [0, '#333'],
+                    [1, '#FFF']
+                ]
+            },
+            borderWidth: 1,
+            outerRadius: '107%'
+        }, {
+        }, {
+            backgroundColor: '#DDD',
+            borderWidth: 0,
+            outerRadius: '105%',
+            innerRadius: '103%'
+        }]
+    },
+    yAxis: {
+        min: 0,
+        max: 100,
+        minorTickInterval: 'auto',
+        minorTickWidth: 1,
+        minorTickLength: 10,
+        minorTickPosition: 'inside',
+        minorTickColor: '#666',
+        tickPixelInterval: 30,
+        tickWidth: 2,
+        tickPosition: 'inside',
+        tickLength: 10,
+        tickColor: '#666',
+        labels: {
+            step: 2,
+            rotation: 'auto'
+        },
+        title: {
+            text: 'cikk/perc'
+        },
+        plotBands: [{
+            from: 0,
+            to: 50,
+            color: '#55BF3B'
+        }, {
+            from: 50,
+            to: 70,
+            color: '#DDDF0D'
+        }, {
+            from: 70,
+            to: 100,
+            color: '#DF5353'
+        }]
+    },
+    series: [{
+        name: 'Feldolgozás sebessége',
+        data: [0],
+        tooltip: {
+            valueSuffix: ' cikk/perc'
+        }
+    }]
+    },
+    function (chart) {
+        if (!chart.renderer.forExport) {
+            setInterval(function () {
+                var point = chart.series[0].points[0],
+                    newVal;
+                newVal = 80;
+                point.update(chart3.getSpeed());
+            }, 3000);
+        }
+    });
+
+});
         </script>
     </head>
     <body>
 <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 <div id="container1" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="container2" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="container3" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="container4" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 
     </body>
 </html>
+

@@ -1,0 +1,23 @@
+start file:/home/chef/deps/log4j-1.2.17.jar
+start file:/home/chef/deps/com.springsource.org.h2-1.0.71.jar
+start file:/home/chef/deps/sztakipediaparserbundle.jar
+start file:/home/chef/deps/pircbotx.jar
+start file:/home/chef/bundles/loggerbundle.jar
+start file:/home/chef/bundles/databaseconnectorbundle.jar
+start file:/home/chef/bundles/parserbundle.jar
+start file:/home/chef/bundles/wikibotbundle.jar
+
+start http://xenia.sote.hu/ftp/mirrors/www.apache.org//felix/org.apache.felix.http.jetty-2.2.0.jar
+start http://xenia.sote.hu/ftp/mirrors/www.apache.org//felix/org.apache.felix.webconsole-4.2.0-all.jar
+
+
+(0)start file:/home/chef/deps/org.mortbay.jetty.util.jar
+(1)start file:/home/chef/deps/org.mortbay.jetty.jar
+(0)start file:/home/chef/deps/org.eclipse.equinox.http.servlet-1.1.0.jar
+(0)start file:/home/chef/deps/osgi.compendium.jar
+(1)start file:/home/chef/deps/org.eclipse.equinox.http.jetty-2.0.0.jar
+(1)start file:/home/chef/deps/gson-2.2.4.jar
+(2)start file:/home/chef/bundles/statisticsbundle.jar
+
+wikiprocessor.dbactivator.connectionstring=jdbc:h2:tcp://localhost:9123/
+wikiprocessor.log4j.properties=/home/chef/log4j.properties

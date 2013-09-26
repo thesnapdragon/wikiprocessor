@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.h2.jdbc.JdbcSQLException;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -70,15 +71,24 @@ public class DBConnectorActivator implements BundleActivator {
 				// default value
 				connstring = "jdbc:h2:tcp://localhost:9123/";
 			}
-	        conn = DriverManager.getConnection(connstring, prop);
-	        conn.setAutoCommit(true);
-	        Statement stat = conn.createStatement();
+			
+			Statement stat = null;
+			try {
+				conn = DriverManager.getConnection(connstring, prop);
+	        	conn.setAutoCommit(true);
+	        	stat = conn.createStatement();
+			} catch (JdbcSQLException e) {
+				logger.error("Can not connect to H2DB!");
+				statistics.increaseErrorLogCount();
+				return;
+			}
 	       
 	        // creating a user and deleting default
 	        stat.execute("CREATE USER IF NOT EXISTS " + DBUSER + " PASSWORD '" + DBPASSWORD + "' ADMIN");
 	        stat.execute("DROP USER IF EXISTS SA");
 	        // creating articles table
 	        stat.execute("CREATE TABLE IF NOT EXISTS articles(text CLOB, length INT, title VARCHAR(255), inserted TIMESTAMP, revision INT)");
+	        stat.execute("CREATE INDEX IF NOT EXISTS titleidx ON articles(title)");
 		} catch (ClassNotFoundException e) {
 			logger.error("Can not found H2 JDBC driver!");
 			statistics.increaseErrorLogCount();

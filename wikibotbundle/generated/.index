@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1376383842976' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1380195449138' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='wikibotbundle'/>
@@ -7,9 +7,9 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='964d60eca5d2100be7526a0c7cc4e3b3866b52e62cb8527561e5721499221ce8'/>
+      <attribute name='osgi.content' value='df83a134b4926ca223d3c10efae45734084ddb825f8da75ce2a6a7d1947867b4'/>
       <attribute name='url' value='generated/wikibotbundle.jar'/>
-      <attribute name='size' type='Long' value='7800'/>
+      <attribute name='size' type='Long' value='7238'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>
     </capability>
     <capability namespace='osgi.wiring.bundle'>
@@ -25,10 +25,22 @@
       <attribute name='project.path' value='/wikibotbundle'/>
     </capability>
     <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(&amp;(osgi.wiring.package=org.jibble.pircbot)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))'/>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
-      <directive name='filter' value='(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))'/>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.pircbotx)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.pircbotx.exception)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.pircbotx.hooks)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.pircbotx.hooks.events)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))'/>
+    </requirement>
+    <requirement namespace='osgi.wiring.package'>
+      <directive name='filter' value='(&amp;(osgi.wiring.package=org.pircbotx.hooks.managers)(version&gt;=0.0.0)(!(version&gt;=1.0.0)))'/>
     </requirement>
     <requirement namespace='osgi.wiring.package'>
       <directive name='filter' value='(&amp;(osgi.wiring.package=wikiprocessor.logger.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))'/>

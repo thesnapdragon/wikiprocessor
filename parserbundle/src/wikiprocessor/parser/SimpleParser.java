@@ -1,6 +1,5 @@
 package wikiprocessor.parser;
 
-import hu.sztaki.sztakipediaparser.wiki.converter.IWikiInterpreter;
 import hu.sztaki.sztakipediaparser.wiki.converter.PlainWikiInterpreter;
 import hu.sztaki.sztakipediaparser.wiki.parser.Parser;
 
@@ -16,24 +15,27 @@ import java.util.Locale;
  *
  * QueueManager implementation
  */
-public class SimpleParser extends Parser implements WikiParser {
-
-	/**
-	 * original constructor (wrapped)
-	 * @param interpreter wikiText interpreter
-	 */
-	public SimpleParser(IWikiInterpreter interpreter) {
-		super(interpreter);
-	}
+public class SimpleParser implements WikiParser {
+	
+	// own parser instance
+	private Parser parser = null;
 	
 	/**
-	 * wrapper constructor: creates a new parser, that can parse wikiText to plain text
-	 * @throws MalformedURLException
-	 * @throws NoSuchAlgorithmException
-	 * @throws IOException
+	 * adapter constructor: creates a new parser, that can parse wikiText to plain text
 	 */
-	public SimpleParser() throws MalformedURLException, NoSuchAlgorithmException, IOException {
-		this(new PlainWikiInterpreter(new Locale("en")));
+	public SimpleParser() {
+		try {
+			this.parser = new Parser(new PlainWikiInterpreter(new Locale("en")));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -43,7 +45,7 @@ public class SimpleParser extends Parser implements WikiParser {
 	 */
 	@Override
 	public String parse(String wikiText) {
-		String parsedText = super.parse(wikiText);
+		String parsedText = this.parser.parse(wikiText);
 		return parsedText;
 	}
 

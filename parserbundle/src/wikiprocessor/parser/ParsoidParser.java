@@ -11,12 +11,19 @@ import java.net.URLConnection;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.08.13.
+ * @since 2013.08.14.
  * 
  * Parser class using the original MediaWiki Parsoid parser
  */
 public class ParsoidParser implements WikiParser {
 
+	// url to connect
+	private String urlString = null;
+	
+	public ParsoidParser(String urlString) {
+		this.urlString = urlString;
+	}
+	
 	/**
 	 * parsing wikiText to plain text
 	 * @param wikiText wikiText to parse
@@ -26,7 +33,7 @@ public class ParsoidParser implements WikiParser {
 	public String parse(String wikiText) {
 		String parsedText = null;
 		try {
-			URL url = new URL(ParserActivator.parsoidUrl);
+			URL url = new URL(urlString);
 			URLConnection conn = url.openConnection();
 
 			conn.setDoOutput(true);

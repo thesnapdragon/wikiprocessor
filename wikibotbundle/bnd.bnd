@@ -1,15 +1,14 @@
 -runfw: org.eclipse.osgi;version='[3.7.2.v20120110-1415,3.7.2.v20120110-1415]'
 -runee: JavaSE-1.6
 -buildpath: osgi.core,\
-	org.jibble.pircbot,\
 	loggerbundle;version=latest,\
-	statisticsbundle;version=latest
+	statisticsbundle;version=latest,\
+	pircbotx
 Bundle-Activator: wikiprocessor.wikibot.WikiBotActivator
 Private-Package: wikiprocessor.wikibot
 Bundle-Version: 1.0
 Bundle-Name: WikiBot Bundle
--runbundles: org.jibble.pircbot;version='[1.5.0,2.0.0)',\
-	log4j,\
+-runbundles: log4j,\
 	loggerbundle;version=latest,\
 	com.springsource.org.h2,\
 	sztakipediaparserbundle,\
@@ -22,4 +21,5 @@ Bundle-Name: WikiBot Bundle
 	statisticsbundle;version=latest,\
 	parserbundle;version=latest,\
 	javax.servlet,\
-	com.google.gson
+	com.google.gson,\
+	pircbotx

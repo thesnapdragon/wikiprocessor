@@ -31,6 +31,7 @@ public class ParsoidParser implements WikiParser {
 	 */
 	@Override
 	public String parse(String wikiText) {
+		WikiObserver.increaseParsoidId();
 		String parsedText = null;
 		try {
 			URL url = new URL(urlString);
@@ -59,7 +60,7 @@ public class ParsoidParser implements WikiParser {
 			ParserActivator.logger.error("Error in connection with Parsoid!");
 			ParserActivator.statistics.increaseErrorLogCount();
 		}
-		
+		WikiObserver.decreaseParsoidId();
 		return parsedText;
 	}
 

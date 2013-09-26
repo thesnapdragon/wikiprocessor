@@ -2,14 +2,16 @@ package wikiprocessor.parser;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
 
 /**
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
- * @version 1.0
- * @since 2013.08.12.
+ * @version 2.0
+ * @since 2013.09.26.
  * 
  * observes QueueManager and handles Wikiworker
  */
@@ -18,8 +20,9 @@ public class WikiObserver implements Observer {
 	// DB bundle's service
 	private DBConnectorService database;
 	
-	// WikiWorker instance (downloads, parses, handles DB)
-	private Thread wikiWorker = null;
+	private ExecutorService executor = null;
+	
+	private static int parsoidId = 1;
 	
 	/**
 	 * stores DB bundle's interface
@@ -27,6 +30,7 @@ public class WikiObserver implements Observer {
 	 */
 	public WikiObserver(DBConnectorService db) {
 		this.database = db;
+		executor = Executors.newFixedThreadPool(19);
 	}
 	
 	/**
@@ -36,17 +40,19 @@ public class WikiObserver implements Observer {
 	 */
 	@Override
 	public void update(Observable observable, Object arg1) {
-		if (wikiWorker != null && wikiWorker.getState() == Thread.State.TERMINATED) {
-			wikiWorker = null;
-		}
-		
-		if (wikiWorker == null) {
-			wikiWorker = new Thread(new WikiWorker(observable, database));
-		}
-		
-		if (wikiWorker != null && !wikiWorker.isAlive()) {
-			wikiWorker.start();
-		}
+		executor.execute(new Thread(new WikiWorker(observable, database)));
+	}
+	
+	public static synchronized void increaseParsoidId() {
+		parsoidId++;
+	}
+	
+	public static synchronized void decreaseParsoidId() {
+		parsoidId--;
+	}
+	
+	public static synchronized int getParsoidId() {
+		return parsoidId;
 	}
 
 }

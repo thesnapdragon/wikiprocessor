@@ -28,8 +28,8 @@ import wikiprocessor.logger.util.Article;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
- * @version 1.0
- * @since 2013.08.14.
+ * @version 2.0
+ * @since 2013.09.26.
  * 
  * Worker class to do time consuming jobs
  */
@@ -52,10 +52,13 @@ public class WikiWorker implements Runnable {
 	 */
 	public WikiWorker(Observable observable, DBConnectorService database) {
 		this.observable = observable;
-		this.database = database;
+		this.database = database;		
+
+//		int port = 8050 + WikiObserver.getParsoidId();
+//		this.parser = new ParsoidParser("http://192.168.201.34:" + port);
+		
 //		this.parser = new SimpleParser();
 		this.parser = new DumbRegexWikiParser();
-//		this.parser = new ParsoidParser("http://192.168.201.34:8081");
 	}
 	
 	/**
@@ -95,7 +98,6 @@ public class WikiWorker implements Runnable {
 				if (wikiText != null) {
 					// if newer version is in the DB then do nothing
 					if (!database.searchNewer(article.getTitle(), article.getRevision())) {
-				        
 						// parsing wikiText						
 						String parsedText = parser.parse(wikiText);
 						if (parsedText != null && !parsedText.isEmpty()) {

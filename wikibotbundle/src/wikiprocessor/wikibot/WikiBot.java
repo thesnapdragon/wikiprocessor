@@ -14,7 +14,7 @@ import wikiprocessor.parser.service.QueueManagerService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
- * @version 1.0
+ * @version 2.0
  * @since 2013.09.26.
  *
  * WikiBot

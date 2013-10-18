@@ -3,7 +3,7 @@ package wikiprocessor.logger.util;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.17.
+ * @since 2013.10.18.
  * 
  * Wikipedia Article class
  */
@@ -11,6 +11,12 @@ public class Article {
 	private String title;
 	private String text;
 	private int revision;
+	
+	public Article() {
+		this.title = "";
+		this.text = "";
+		this.revision = 0;
+	}
 	
 	public Article(String title, int revision) {
 		this.title = title;

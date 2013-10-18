@@ -188,7 +188,7 @@ $(function() {
 setInterval(function(){
 $.ajax({
     dataType: "json",
-    url: "http://192.168.201.34:8080/api",
+    url: "http://192.168.200.97:8080/api",
     success: function(data) {
         chart1.statistics = data.articlesData;
         chart2.statistics = data.logsData;

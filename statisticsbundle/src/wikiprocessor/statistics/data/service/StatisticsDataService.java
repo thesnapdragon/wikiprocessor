@@ -44,4 +44,8 @@ public interface StatisticsDataService {
 	public int getDebugLogCount();
 
 	public void increaseDebugLogCount();
+	
+	public double getWorkingParserRatio();
+	
+	public void setWorkingParserRatio(double workingParserRatio);
 }

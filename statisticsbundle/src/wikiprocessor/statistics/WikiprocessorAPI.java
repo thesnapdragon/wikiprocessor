@@ -44,6 +44,9 @@ public class WikiprocessorAPI extends HttpServlet {
 		// statistic data about queuelength
 		json.addProperty("queuelength", StatisticsActivator.statistics.getQueueLength());
 		
+		// statistic data about working parsoid parsers count
+		json.addProperty("workingparsoids", StatisticsActivator.statistics.getWorkingParserRatio());
+		
 		resp.setContentType("application/json");
 		resp.getWriter().write(json.toString());
 	}

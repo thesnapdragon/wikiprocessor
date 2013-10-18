@@ -11,19 +11,21 @@ import java.net.URLConnection;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.08.14.
+ * @since 2013.10.18.
  * 
  * Parser class using the original MediaWiki Parsoid parser
  */
 public class ParsoidParser implements WikiParser {
 
+	// WikiObserver instance
+	private WikiObserver wikiObserver = null;
 	// url to connect
 	private String urlString = null;
 	
-	public ParsoidParser(String urlString) {
-		this.urlString = urlString;
+	public ParsoidParser(WikiObserver wikiObserver) {
+		this.wikiObserver = wikiObserver;
 	}
-	
+
 	/**
 	 * parsing wikiText to plain text
 	 * @param wikiText wikiText to parse
@@ -31,7 +33,7 @@ public class ParsoidParser implements WikiParser {
 	 */
 	@Override
 	public String parse(String wikiText) {
-		WikiObserver.increaseParsoidId();
+		urlString = wikiObserver.getParsoidInstance();
 		String parsedText = null;
 		try {
 			URL url = new URL(urlString);
@@ -54,13 +56,13 @@ public class ParsoidParser implements WikiParser {
 			reader.close();
 		
 		} catch (MalformedURLException e) {
-			ParserActivator.logger.error("Error while connecting to Parsoid!");
+			ParserActivator.logger.error("Error while connecting to Parsoid " + urlString + "!");
 			ParserActivator.statistics.increaseErrorLogCount();
 		} catch (IOException e) {
-			ParserActivator.logger.error("Error in connection with Parsoid!");
+			ParserActivator.logger.error("Error in connection with Parsoid " + urlString + "!");
 			ParserActivator.statistics.increaseErrorLogCount();
 		}
-		WikiObserver.decreaseParsoidId();
+		wikiObserver.putParsoidInstance(urlString);
 		return parsedText;
 	}
 

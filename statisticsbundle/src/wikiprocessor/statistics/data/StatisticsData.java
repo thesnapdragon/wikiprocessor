@@ -5,7 +5,7 @@ import wikiprocessor.statistics.data.service.StatisticsDataService;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.29.
+ * @since 2013.10.18.
  *
  * Handling statistics datas
  */
@@ -22,6 +22,8 @@ public class StatisticsData implements StatisticsDataService {
 	private int traceLogCount;
 	private int debugLogCount;
 	
+	private double workingParserRatio;
+	
 	public StatisticsData() {
 		this.updatedArticlesCount = 0;
 		this.insertedArticlesCount = 0;
@@ -33,6 +35,18 @@ public class StatisticsData implements StatisticsDataService {
 		this.warningLogCount = 0;
 		this.traceLogCount = 0;
 		this.debugLogCount = 0;
+		
+		this.workingParserRatio = 0;
+	}
+
+	@Override
+	public double getWorkingParserRatio() {
+		return workingParserRatio;
+	}
+
+	@Override
+	public void setWorkingParserRatio(double workingParserRatio) {
+		this.workingParserRatio = workingParserRatio;
 	}
 
 	@Override

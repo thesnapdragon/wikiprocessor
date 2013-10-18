@@ -1,6 +1,6 @@
 #!/bin/bash
 
-server=192.168.201.34
+server=192.168.200.97
 deps=/home/chef/Egyetem/Onlab/repository/dependency
 src=/home/chef/Egyetem/Onlab/repository
 

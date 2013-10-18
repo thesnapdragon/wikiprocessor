@@ -49,16 +49,15 @@ public class WikiWorker implements Runnable {
 	 * constructs a worker
 	 * @param observable observable QueueManager
 	 * @param database connector to H2DB
+	 * @param wikiObserver 
 	 */
-	public WikiWorker(Observable observable, DBConnectorService database) {
+	public WikiWorker(Observable observable, DBConnectorService database, WikiObserver wikiObserver) {
 		this.observable = observable;
 		this.database = database;		
 
-//		int port = 8050 + WikiObserver.getParsoidId();
-//		this.parser = new ParsoidParser("http://192.168.201.34:" + port);
-		
+		this.parser = new ParsoidParser(wikiObserver);
 //		this.parser = new SimpleParser();
-		this.parser = new DumbRegexWikiParser();
+//		this.parser = new DumbRegexWikiParser();
 	}
 	
 	/**

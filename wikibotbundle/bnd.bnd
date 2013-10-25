@@ -2,7 +2,6 @@
 -runee: JavaSE-1.6
 -buildpath: osgi.core,\
 	loggerbundle;version=latest,\
-	statisticsbundle;version=latest,\
 	pircbotx
 Bundle-Activator: wikiprocessor.wikibot.WikiBotActivator
 Private-Package: wikiprocessor.wikibot

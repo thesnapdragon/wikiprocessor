@@ -1,16 +1,16 @@
 stop wikibotbundle
 stop parserbundle
 stop databaseconnectorbundle
-stop statisticsbundle
 stop loggerbundle
+stop statisticsbundle
 update wikibotbundle
 update parserbundle
 update databaseconnectorbundle
-update statisticsbundle
 update loggerbundle
-b=(bundle file:/home/chef/bundles/loggerbundle.jar) bundleid
-start $b
+update statisticsbundle
 b=(bundle file:/home/chef/bundles/statisticsbundle.jar) bundleid
+start $b
+b=(bundle file:/home/chef/bundles/loggerbundle.jar) bundleid
 start $b
 b=(bundle file:/home/chef/bundles/databaseconnectorbundle.jar) bundleid
 start $b

@@ -3,7 +3,7 @@ package wikiprocessor.statistics.data.service;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.29.
+ * @since 2013.10.25.
  *
  * Interface for Statistics class.
  */
@@ -48,4 +48,10 @@ public interface StatisticsDataService {
 	public double getWorkingParserRatio();
 	
 	public void setWorkingParserRatio(double workingParserRatio);
+	
+	public double getProcessStatus();
+
+	public void setPageCount(int pageCount);
+
+	public void increaseProcessedPages();
 }

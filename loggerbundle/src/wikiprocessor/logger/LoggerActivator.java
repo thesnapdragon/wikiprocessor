@@ -6,8 +6,10 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.logger.service.LoggerService;
+import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -26,8 +28,15 @@ public class LoggerActivator implements BundleActivator, LoggerService {
 	// logger instance
 	private static Logger logger;
 	
+	// statistics bundle instance
+	public static StatisticsDataService statistics;
+	
 	@Override
 	public void start(BundleContext context) throws Exception {
+		// gets Statistics instance
+        ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
+        statistics = (StatisticsDataService) context.getService(statsref);		
+		
 		// setting log4j.properties 
 	    String log4jpropfile = context.getProperty(LOG4J_PROPERTIES);
 	    if (log4jpropfile == null || log4jpropfile.isEmpty()) {
@@ -55,12 +64,14 @@ public class LoggerActivator implements BundleActivator, LoggerService {
 
 	@Override
 	public void trace(String msg) {
-		logger.trace(msg);		
+		logger.trace(msg);
+		statistics.increaseTraceLogCount();
 	}
 
 	@Override
 	public void debug(String msg) {
 		logger.debug(msg);
+		statistics.increaseDebugLogCount();
 	}
 
 	@Override
@@ -71,11 +82,13 @@ public class LoggerActivator implements BundleActivator, LoggerService {
 	@Override
 	public void warn(String msg) {
 		logger.warn(msg);
+		statistics.increaseWarningLogCount();
 	}
 
 	@Override
 	public void error(String msg) {
 		logger.error(msg);
+		statistics.increaseErrorLogCount();
 	}
 
 	@Override

@@ -2,18 +2,12 @@ package wikiprocessor.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Observable;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -72,7 +66,6 @@ public class WikiWorker implements Runnable {
 				throw new WrongObserverException();
 			} catch (WrongObserverException e) {
 				ParserActivator.logger.error("Could not find QueueManager instance in OSGi pool!");
-				ParserActivator.statistics.increaseDebugLogCount();
 				e.printStackTrace();
 			}
 		}
@@ -97,7 +90,7 @@ public class WikiWorker implements Runnable {
 				if (wikiText != null) {
 					// if newer version is in the DB then do nothing
 					if (!database.searchNewer(article.getTitle(), article.getRevision())) {
-						// parsing wikiText						
+						// parsing wikiText
 						String parsedText = parser.parse(wikiText);
 						if (parsedText != null && !parsedText.isEmpty()) {
 							article.setText(parsedText);
@@ -136,19 +129,15 @@ public class WikiWorker implements Runnable {
 			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
 		} catch (MalformedURLException e) {
 			ParserActivator.logger.warn("Can not download XML file!");
-			ParserActivator.statistics.increaseWarningLogCount();
 			e.printStackTrace();
 		} catch (SAXException e) {
 			ParserActivator.logger.warn("Can not parse downloaded XML!");
-			ParserActivator.statistics.increaseWarningLogCount();
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
 			ParserActivator.logger.warn("Error by configuring parser!");
-			ParserActivator.statistics.increaseWarningLogCount();
 			e.printStackTrace();
 		} catch (IOException e) {
 			ParserActivator.logger.warn("Error in connection while downloading XML!");
-			ParserActivator.statistics.increaseWarningLogCount();
 			e.printStackTrace();
 		}
 		return doc;
@@ -171,38 +160,14 @@ public class WikiWorker implements Runnable {
 				wikitextContent = wikitext.getTextContent();
 			} else {
 				ParserActivator.logger.warn("Could not find wikitext content in xml!");
-				ParserActivator.statistics.increaseWarningLogCount();
 				
 				return null;
 			}
 		} catch (XPathExpressionException e) {
 			ParserActivator.logger.warn("Could not find wikitext content!");
-			ParserActivator.statistics.increaseWarningLogCount();
 			e.printStackTrace();
 		}
 		return wikitextContent;
-	}
-	
-	/**
-	 * utility method for convert xml to string; helps debugging [NOT USED]
-	 * @param doc xml to convert
-	 * @return string form of the xml
-	 */
-	public static String docToString(Document doc) {
-	    try {
-	        StringWriter sw = new StringWriter();
-	        TransformerFactory tf = TransformerFactory.newInstance();
-	        Transformer transformer = tf.newTransformer();
-	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
-	        transformer.transform(new DOMSource(doc), new StreamResult(sw));
-	        return sw.toString();
-	    } catch (Exception ex) {
-	        throw new RuntimeException("Error converting to String", ex);
-	    }
 	}
 	
 	/**

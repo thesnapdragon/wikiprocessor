@@ -1,8 +1,9 @@
--runee: JavaSE-1.9
+-runee: OSGi/Minimum-1.0
 -runfw: org.apache.felix.framework;version='[4.0.3,4.0.3]'
 -buildpath: osgi.core,\
 	junit.osgi,\
-	log4j
+	log4j,\
+	statisticsbundle;version=latest
 Bundle-Version: 1.0
 Private-Package: wikiprocessor.logger,\
 	wikiprocessor.logger.service
@@ -12,4 +13,5 @@ Export-Package: wikiprocessor.logger.service,\
 Bundle-Activator: wikiprocessor.logger.LoggerActivator
 Bundle-Name: Logger Bundle
 -runproperties: log4j.configuration=/home/chef/log4j.properties
--runbundles: log4j
+-runbundles: log4j,\
+	statisticsbundle;version=latest

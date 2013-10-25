@@ -4,7 +4,6 @@ Export-Package: wikiprocessor.statistics,\
 	wikiprocessor.statistics.data.service,\
 	wikiprocessor.statistics.data
 -buildpath: osgi.core,\
-	loggerbundle;version=latest,\
 	javax.servlet,\
 	org.eclipse.osgi,\
 	org.eclipse.equinox.http.jetty,\
@@ -14,7 +13,6 @@ Export-Package: wikiprocessor.statistics,\
 -runee: OSGi/Minimum-1.0
 -runbundles: javax.servlet,\
 	log4j,\
-	loggerbundle;version=latest,\
 	org.apache.felix.http.jetty,\
 	org.eclipse.equinox.http.servlet,\
 	org.eclipse.equinox.http.jetty,\

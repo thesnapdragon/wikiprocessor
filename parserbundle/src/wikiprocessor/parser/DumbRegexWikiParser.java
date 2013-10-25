@@ -389,7 +389,6 @@ public class DumbRegexWikiParser implements WikiParser {
 			parsed = wikitext2html(wikiText);
 		} catch (Exception e) {
 			ParserActivator.logger.warn("DumbRegexWikiParser error!");
-			ParserActivator.statistics.increaseWarningLogCount();
 		}
 		return parsed;
 	}

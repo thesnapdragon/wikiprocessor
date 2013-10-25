@@ -26,4 +26,5 @@ Bundle-Name: Parser Bundle
 	statisticsbundle;version=latest,\
 	javax.servlet
 Private-Package: wikiprocessor.parser,\
-	wikiprocessor.parser.service
+	wikiprocessor.parser.service,\
+	wikiprocessor.dump

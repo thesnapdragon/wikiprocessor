@@ -40,7 +40,6 @@ public class HttpServiceTracker extends ServiceTracker {
 	    }
 	 
 	    try {
-	    	StatisticsActivator.logger.debug("Registering statistics servlet at: " + APIURL);
 	    	// registering api servlet
 	    	httpService.registerServlet(APIURL, new WikiprocessorAPI(), null, null);
 	    	
@@ -59,8 +58,6 @@ public class HttpServiceTracker extends ServiceTracker {
 	@SuppressWarnings("unchecked")
 	public void removedService(ServiceReference reference, Object service) {
 	    HttpService httpService = (HttpService) service;
-	 
-	    StatisticsActivator.logger.debug("Unregistering statistics servlet: " + APIURL);
 	    httpService.unregister(APIURL);
 	 
 	    super.removedService(reference, service);

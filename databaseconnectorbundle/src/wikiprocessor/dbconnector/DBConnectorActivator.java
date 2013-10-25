@@ -14,7 +14,6 @@ import org.osgi.framework.ServiceReference;
 
 import wikiprocessor.dbconnector.service.DBConnectorService;
 import wikiprocessor.logger.service.LoggerService;
-import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -35,9 +34,6 @@ public class DBConnectorActivator implements BundleActivator {
 	// logger instance
 	public static LoggerService logger;
 	
-	// statistics bundle unstance
-	public static StatisticsDataService statistics;
-	
 	// JDBC connection instance
 	public static Connection conn;
 	
@@ -51,10 +47,6 @@ public class DBConnectorActivator implements BundleActivator {
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
         
-        // gets Statistics instance
-        ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
-        statistics = (StatisticsDataService) context.getService(statsref);
-		
 		try {
 			// creating connection
 			Class.forName("org.h2.Driver");
@@ -66,7 +58,6 @@ public class DBConnectorActivator implements BundleActivator {
 			if (connstring == null || connstring.isEmpty()) {
 				System.err.println("WARNING! Can not find DB's connection string property, using default value!");
 				logger.warn("Can not find DB's connection string property, using default value!");
-				statistics.increaseWarningLogCount();
 				
 				// default value
 				connstring = "jdbc:h2:tcp://localhost:9123/";
@@ -79,7 +70,6 @@ public class DBConnectorActivator implements BundleActivator {
 	        	stat = conn.createStatement();
 			} catch (JdbcSQLException e) {
 				logger.error("Can not connect to H2DB!");
-				statistics.increaseErrorLogCount();
 				return;
 			}
 	       
@@ -91,11 +81,9 @@ public class DBConnectorActivator implements BundleActivator {
 	        stat.execute("CREATE INDEX IF NOT EXISTS titleidx ON articles(title)");
 		} catch (ClassNotFoundException e) {
 			logger.error("Can not found H2 JDBC driver!");
-			statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		} catch (SQLException e) {
 			logger.error("Error while creating DB user, or deleting default (SA) user, or creating Articles table!");
-			statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		
@@ -106,7 +94,6 @@ public class DBConnectorActivator implements BundleActivator {
         context.registerService(DBConnectorService.class.getName(), new DBConnector(), properties);
         
         logger.debug("Started: DBConnector bundle.");
-        statistics.increaseDebugLogCount();
 	}
 
 	/**
@@ -115,7 +102,6 @@ public class DBConnectorActivator implements BundleActivator {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		logger.debug("Stopped: DBConnector bundle.");
-		statistics.increaseDebugLogCount();
 		ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
 		context.ungetService(dbsref);
 	}

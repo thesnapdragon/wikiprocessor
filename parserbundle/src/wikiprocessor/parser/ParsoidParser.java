@@ -57,10 +57,8 @@ public class ParsoidParser implements WikiParser {
 		
 		} catch (MalformedURLException e) {
 			ParserActivator.logger.error("Error while connecting to Parsoid " + urlString + "!");
-			ParserActivator.statistics.increaseErrorLogCount();
 		} catch (IOException e) {
 			ParserActivator.logger.error("Error in connection with Parsoid " + urlString + "!");
-			ParserActivator.statistics.increaseErrorLogCount();
 		}
 		wikiObserver.putParsoidInstance(urlString);
 		return parsedText;

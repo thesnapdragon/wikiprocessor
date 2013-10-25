@@ -4,8 +4,7 @@ Private-Package: wikiprocessor.dbconnector,\
 	wikiprocessor.dbconnector.service
 -buildpath: osgi.core,\
 	com.springsource.org.h2,\
-	loggerbundle;version=latest,\
-	statisticsbundle;version=latest
+	loggerbundle;version=latest
 -runproperties: log4j.configuration=/home/chef/log4j.properties
 -runbundles: com.springsource.org.h2,\
 	loggerbundle;version=latest,\

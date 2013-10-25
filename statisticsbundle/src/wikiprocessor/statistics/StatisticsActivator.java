@@ -4,9 +4,7 @@ import java.util.Hashtable;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 
-import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.statistics.data.StatisticsData;
 import wikiprocessor.statistics.data.service.StatisticsDataService;
 
@@ -24,8 +22,7 @@ public class StatisticsActivator implements BundleActivator {
 	// system property, that contains statistics HTML file path
 	private static final String STATISTICS_FILEPATH_VARIABLE = "wikiprocessor.statistics.filepath";
 	
-	// logger instance
-	public static LoggerService logger;
+	// statistics instance
 	public static String statisticsFilePath;
 	public static StatisticsData statistics;
 	
@@ -36,10 +33,6 @@ public class StatisticsActivator implements BundleActivator {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		// gets Logger instance
-        ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
-        logger = (LoggerService) context.getService(logsref);
-		
         // create a new service tracker
         serviceTracker = new HttpServiceTracker(context);
         serviceTracker.open();
@@ -47,11 +40,11 @@ public class StatisticsActivator implements BundleActivator {
         // setting statistics file path 
 	    statisticsFilePath = context.getProperty(STATISTICS_FILEPATH_VARIABLE);
 	    if (statisticsFilePath == null || statisticsFilePath.isEmpty()) {
-			logger.warn("Can not find statistics file path variable, using default value!");
+			// TODO
 			// default value
 			statisticsFilePath = "/opt/wikiprocessor/web/index.html";
 		}
-        
+	    
         // create service properties
         Hashtable<String, String> properties = new Hashtable<String, String>();
         properties.put("WikiProcessorModule", "StatisticsService");
@@ -59,8 +52,6 @@ public class StatisticsActivator implements BundleActivator {
         statistics = new StatisticsData();
 		// register service
         context.registerService(StatisticsDataService.class.getName(), statistics , properties);
-        
-        logger.debug("Started: Statistics bundle.");
 	}
 
 	/**
@@ -68,8 +59,6 @@ public class StatisticsActivator implements BundleActivator {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		logger.debug("Stopped: Statistics bundle.");
-		
 		serviceTracker.close();
 	    serviceTracker = null;
 	}

@@ -47,10 +47,6 @@ public class WikiBotActivator implements BundleActivator {
     	// gets Logger instance
         ServiceReference logsref = context.getServiceReference(LoggerService.class.getName());
         logger = (LoggerService) context.getService(logsref);
-        
-        // gets Statistics instance
-        ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
-        statistics = (StatisticsDataService) context.getService(statsref);
               
         // gets QueueManager instance
         ServiceReference qmsref = context.getServiceReference(QueueManagerService.class.getName());
@@ -74,7 +70,6 @@ public class WikiBotActivator implements BundleActivator {
         bot.joinChannel(CHANNELNAME);
         
         logger.debug("Started: IRC bot bundle.");
-        statistics.increaseDebugLogCount();
     }
 
     /**
@@ -83,6 +78,5 @@ public class WikiBotActivator implements BundleActivator {
     public void stop(BundleContext context){
     	bot.disconnect();
         logger.debug("Stopped: IRC bot bundle.");
-        statistics.increaseDebugLogCount();
     }
 }

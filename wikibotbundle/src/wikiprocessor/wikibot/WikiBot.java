@@ -68,12 +68,10 @@ public class WikiBot extends ListenerAdapter {
     
 	public void onQuit(QuitEvent event) {
     	WikiBotActivator.logger.warn("WikiBot quited! Reason: " + event.getReason());
-    	WikiBotActivator.statistics.increaseWarningLogCount();
     }
     
     public void onDisconnect(DisconnectEvent event) {
     	WikiBotActivator.logger.warn("WikiBot disconnected!");
-    	WikiBotActivator.statistics.increaseWarningLogCount();
     }
     
 }

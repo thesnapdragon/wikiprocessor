@@ -50,10 +50,8 @@ public class DBConnector implements DBConnectorService {
 			ps.execute();
 			
 			DBConnectorActivator.logger.trace("Article inserted: " + article.getTitle());
-			DBConnectorActivator.statistics.increaseTraceLogCount();
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not insert into H2 database!");
-			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +71,6 @@ public class DBConnector implements DBConnectorService {
 			}
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not query H2 database!");
-			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		return false;
@@ -99,10 +96,8 @@ public class DBConnector implements DBConnectorService {
 			ps.execute();
 			
 			DBConnectorActivator.logger.trace("Article updated: " + article.getTitle());
-			DBConnectorActivator.statistics.increaseTraceLogCount();
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not update article in H2 database!");
-			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}		
 	}
@@ -122,7 +117,6 @@ public class DBConnector implements DBConnectorService {
 			}
 		} catch (SQLException e) {
 			DBConnectorActivator.logger.error("Can not query H2 database!");
-			DBConnectorActivator.statistics.increaseErrorLogCount();
 			e.printStackTrace();
 		}
 		return false;

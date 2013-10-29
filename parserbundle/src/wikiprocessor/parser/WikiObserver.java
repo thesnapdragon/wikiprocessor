@@ -13,7 +13,7 @@ import wikiprocessor.dbconnector.service.DBConnectorService;
  * 
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 2.0
- * @since 2013.10.24.
+ * @since 2013.10.25.
  * 
  * observes QueueManager and handles Wikiworker
  */
@@ -24,17 +24,23 @@ public class WikiObserver implements Observer {
 	
 	private ExecutorService executor = null;
 	private LinkedBlockingQueue<String> parsoidList = null;
+	private int parsoidMaxNumber = 0;
+	
+	private String name = null;
 	
 	/**
 	 * stores DB bundle's interface
 	 * @param db DB bundle's service instance
 	 * @param parsoidAddressList 
 	 */
-	public WikiObserver(DBConnectorService db, String[] parsoidAddressList) {
-		parsoidList = new LinkedBlockingQueue<String>(Arrays.asList(parsoidAddressList));
+	public WikiObserver(String name, DBConnectorService db, String[] parsoidAddressList) {
+		this.name = name;
+		
+		this.parsoidList = new LinkedBlockingQueue<String>(Arrays.asList(parsoidAddressList));
+		this.parsoidMaxNumber = parsoidList.size();
 	
 		this.database = db;
-		executor = Executors.newFixedThreadPool(parsoidList.size());
+		this.executor = Executors.newFixedThreadPool(parsoidList.size());
 	}
 	
 	/**
@@ -52,12 +58,16 @@ public class WikiObserver implements Observer {
 	 * @return Parsoid url
 	 */
 	public synchronized String getParsoidInstance() {
-		ParserActivator.statistics.setWorkingParserRatio(parsoidList.size() / (double)parsoidList.size());
+		ParserActivator.statistics.setWorkingParserRatio(name, (parsoidMaxNumber - parsoidList.size()) / (double)parsoidMaxNumber);
 		return parsoidList.poll();
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public synchronized void putParsoidInstance(String url) {
-		ParserActivator.statistics.setWorkingParserRatio(parsoidList.size() / (double)parsoidList.size());
+		ParserActivator.statistics.setWorkingParserRatio(name, (parsoidMaxNumber - parsoidList.size()) / (double)parsoidMaxNumber);
 		parsoidList.add(url);
 	}
 

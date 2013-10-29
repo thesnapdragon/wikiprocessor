@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.07.23.
+ * @since 2013.07.25.
  *
  * Servlet that implements statistics API to Wikiprocessor
  */
@@ -45,7 +45,8 @@ public class WikiprocessorAPI extends HttpServlet {
 		json.addProperty("queuelength", StatisticsActivator.statistics.getQueueLength());
 		
 		// statistic data about working parsoid parsers count
-		json.addProperty("workingparsoids", StatisticsActivator.statistics.getWorkingParserRatio());
+		json.addProperty("mainworkingparsoids", StatisticsActivator.statistics.getWorkingParserRatio("main"));
+		json.addProperty("dumpworkingparsoids", StatisticsActivator.statistics.getWorkingParserRatio("dump"));
 		
 		// statistic data about dump loading process
 		json.addProperty("dumpprocess", StatisticsActivator.statistics.getProcessStatus());

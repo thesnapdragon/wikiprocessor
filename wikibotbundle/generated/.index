@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<repository increment='1382697555843' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
+<repository increment='1382711353074' name='wikibotbundle' xmlns='http://www.osgi.org/xmlns/repository/v1.0.0'>
   <resource>
     <capability namespace='osgi.identity'>
       <attribute name='osgi.identity' value='wikibotbundle'/>
@@ -7,7 +7,7 @@
       <attribute name='version' type='Version' value='1.0.0'/>
     </capability>
     <capability namespace='osgi.content'>
-      <attribute name='osgi.content' value='78106dabf09fcf28b6ab9fc6b9545fa516e43b7f4aa5946daaac18e50ac93e4d'/>
+      <attribute name='osgi.content' value='e676cc9b1a7ab0acf016f2149d1c4719f0de06ddde66e121f1e0d4cca1817187'/>
       <attribute name='url' value='generated/wikibotbundle.jar'/>
       <attribute name='size' type='Long' value='6981'/>
       <attribute name='mime' value='application/vnd.osgi.bundle'/>

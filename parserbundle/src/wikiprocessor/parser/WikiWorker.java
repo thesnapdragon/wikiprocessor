@@ -39,6 +39,8 @@ public class WikiWorker implements Runnable {
 	// private parser
 	private WikiParser parser = null;
 	
+	private boolean skipDownload = false;
+	
 	/**
 	 * constructs a worker
 	 * @param observable observable QueueManager
@@ -50,6 +52,8 @@ public class WikiWorker implements Runnable {
 		this.database = database;		
 
 		this.parser = new ParsoidParser(wikiObserver);
+		
+		if (wikiObserver.getName().endsWith("dump")) skipDownload = true;
 //		this.parser = new SimpleParser();
 //		this.parser = new DumbRegexWikiParser();
 	}
@@ -83,8 +87,12 @@ public class WikiWorker implements Runnable {
 
 			// don not extract article's text if the article was not downloaded 
 			String wikiText = null;
-			if (doc != null) {
-				wikiText = getRawWikitext(doc);
+			if (doc != null || skipDownload) {
+				if (skipDownload) {
+					wikiText = article.getText();
+				} else {
+					wikiText = getRawWikitext(doc);
+				}
 				
 				// if wikiText has been found
 				if (wikiText != null) {

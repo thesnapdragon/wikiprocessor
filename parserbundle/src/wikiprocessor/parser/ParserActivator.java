@@ -80,7 +80,7 @@ public class ParserActivator implements BundleActivator {
         		"http://192.168.201.54:8081",
         		"http://192.168.201.56:8081"
         };
-        WikiObserver wikiObserver = new WikiObserver(database, parsoidAddressList);
+        WikiObserver wikiObserver = new WikiObserver("main", database, parsoidAddressList);
         queuemanager.addObserver(wikiObserver);
         // register service
         context.registerService(QueueManagerService.class.getName(), queuemanager, properties);
@@ -117,7 +117,7 @@ public class ParserActivator implements BundleActivator {
         		"http://192.168.201.52:8081",
         		"http://192.168.201.48:8081"
         		};
-        WikiObserver dumpWikiObserver = new WikiObserver(database, parsoidAddressList);
+        WikiObserver dumpWikiObserver = new WikiObserver("dump", database, parsoidAddressList);
         dumpQueueManager.addObserver(dumpWikiObserver);
     	Thread loader = new Thread(new DumpLoader(dumpFilePath, dumpQueueManager));
     	loader.start();

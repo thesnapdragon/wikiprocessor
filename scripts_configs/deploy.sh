@@ -10,5 +10,5 @@ scp $src/parserbundle/generated/parserbundle.jar $server:/home/chef/bundles/
 scp $src/wikibotbundle/generated/wikibotbundle.jar $server:/home/chef/bundles/
 scp $src/loggerbundle/generated/loggerbundle.jar $server:/home/chef/bundles/
 scp $src/statisticsbundle/generated/statisticsbundle.jar $server:/home/chef/bundles/
-scp log4j.properties $server:/home/chef/
-scp index.html $server:/home/chef/
+#scp log4j.properties $server:/home/chef/
+#scp index.html $server:/home/chef/

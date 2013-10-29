@@ -1,5 +1,7 @@
 package wikiprocessor.statistics.data;
 
+import java.util.HashMap;
+
 import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
@@ -22,7 +24,7 @@ public class StatisticsData implements StatisticsDataService {
 	private int traceLogCount;
 	private int debugLogCount;
 	
-	private double workingParserRatio;
+	private HashMap<String, Double> workingParserRatios;
 	
 	private int pageCount;
 	private int processedPages;
@@ -39,20 +41,24 @@ public class StatisticsData implements StatisticsDataService {
 		this.traceLogCount = 0;
 		this.debugLogCount = 0;
 		
-		this.workingParserRatio = 0;
+		this.workingParserRatios = new HashMap<String, Double>();
 		
 		this.pageCount = 0;
 		this.processedPages = 0;
 	}
 
 	@Override
-	public double getWorkingParserRatio() {
-		return workingParserRatio;
+	public double getWorkingParserRatio(String name) {
+		if (!(workingParserRatios.containsKey(name))) {
+			return 0;
+		} else {
+			return workingParserRatios.get(name);
+		}
 	}
 
 	@Override
-	public void setWorkingParserRatio(double workingParserRatio) {
-		this.workingParserRatio = workingParserRatio;
+	public void setWorkingParserRatio(String name, double workingParserRatio) {
+		this.workingParserRatios.put(name, workingParserRatio);
 	}
 
 	@Override

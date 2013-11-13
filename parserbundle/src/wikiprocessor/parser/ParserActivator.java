@@ -26,6 +26,8 @@ public class ParserActivator implements BundleActivator {
 	// system property, that contains dump XML file path
 	private static final String DUMP_FILEPATH_VARIABLE = "wikiprocessor.dump.filepath";
 	
+	private static final int QUEUELENGTH = 10000;
+	
 	// logger instance
 	public static LoggerService logger;
 	
@@ -46,11 +48,6 @@ public class ParserActivator implements BundleActivator {
         // gets Statistics instance
         ServiceReference statsref = context.getServiceReference(StatisticsDataService.class.getName());
         statistics = (StatisticsDataService) context.getService(statsref);
-        
-        // create service properties
-        Hashtable<String, String> properties = new Hashtable<String, String>();
-        properties.put("WikiProcessorModule", "QueueManagerService");
-        QueueManager queuemanager = new QueueManager();
 
         // gets DBConnector instance
         ServiceReference dbsref = context.getServiceReference(DBConnectorService.class.getName());
@@ -80,6 +77,12 @@ public class ParserActivator implements BundleActivator {
         		"http://192.168.201.54:8081",
         		"http://192.168.201.56:8081"
         };
+        
+        // create service properties
+        Hashtable<String, String> properties = new Hashtable<String, String>();
+        properties.put("WikiProcessorModule", "QueueManagerService");
+        QueueManager queuemanager = new QueueManager(QUEUELENGTH);
+        // create observer
         WikiObserver wikiObserver = new WikiObserver("main", database, parsoidAddressList);
         queuemanager.addObserver(wikiObserver);
         // register service
@@ -108,7 +111,7 @@ public class ParserActivator implements BundleActivator {
      * @param dumpFilePath to load
      */
     public void loadDump(String dumpFilePath, DBConnectorService database) {
-    	QueueManager dumpQueueManager = new QueueManager();
+    	QueueManager dumpQueueManager = new QueueManager(QUEUELENGTH);
     	// add observer to dumpQueueManager
         String[] parsoidAddressList = {
         		"http://192.168.201.66:8081",

@@ -51,6 +51,9 @@ public class WikiprocessorAPI extends HttpServlet {
 		// statistic data about dump loading process
 		json.addProperty("dumpprocess", StatisticsActivator.statistics.getProcessStatus());
 		
+		// statistic data about dump loading process
+		json.addProperty("chainspeed", StatisticsActivator.statistics.getChainSpeed());
+		
 		resp.setContentType("application/json");
 		resp.getWriter().write(json.toString());
 	}

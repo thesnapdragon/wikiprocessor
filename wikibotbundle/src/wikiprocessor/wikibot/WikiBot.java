@@ -53,7 +53,7 @@ public class WikiBot extends ListenerAdapter {
 				// ignore List, Category, Talk... containing colon
 				if (!(content.matches(".*:.*") || content.matches(".*List of.*"))) {
 					// content matched grep revision number
-					Pattern revisionpattern = Pattern.compile(".*oldid=(\\d+).*");
+					Pattern revisionpattern = Pattern.compile(".*diff=(\\d+).*");
 					Matcher revisionmatcher = revisionpattern.matcher(Colors.removeColors(event.getMessage()));
 					if (revisionmatcher.find()) {
 						int revision = Integer.parseInt(revisionmatcher.group(1));

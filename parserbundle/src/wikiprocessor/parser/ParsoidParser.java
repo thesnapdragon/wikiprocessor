@@ -11,7 +11,7 @@ import java.net.URLConnection;
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
  * @version 1.0
- * @since 2013.10.18.
+ * @since 2013.11.06.
  * 
  * Parser class using the original MediaWiki Parsoid parser
  */
@@ -34,7 +34,7 @@ public class ParsoidParser implements WikiParser {
 	@Override
 	public String parse(String wikiText) {
 		urlString = wikiObserver.getParsoidInstance();
-		String parsedText = null;
+		StringBuilder parsedText = new StringBuilder();
 		try {
 			URL url = new URL(urlString);
 			URLConnection conn = url.openConnection();
@@ -46,11 +46,11 @@ public class ParsoidParser implements WikiParser {
 			writer.write(wikiText);
 			writer.flush();
 	
-			String line;
+			String line = null;
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	
 			while ((line = reader.readLine()) != null) {
-			    parsedText = parsedText + line;
+			    parsedText.append(line);
 			}
 			writer.close();
 			reader.close();
@@ -61,7 +61,7 @@ public class ParsoidParser implements WikiParser {
 			ParserActivator.logger.error("Error in connection with Parsoid " + urlString + "!");
 		}
 		wikiObserver.putParsoidInstance(urlString);
-		return parsedText;
+		return parsedText.toString();
 	}
 
 }

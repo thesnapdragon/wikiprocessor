@@ -16,6 +16,7 @@ public class StatisticsData implements StatisticsDataService {
 	private int updatedArticlesCount;
 	private int insertedArticlesCount;
 	private int notProcessedArticlesCount;
+	private double chainSpeed;
 	
 	private int queueLength;
 	
@@ -33,6 +34,7 @@ public class StatisticsData implements StatisticsDataService {
 		this.updatedArticlesCount = 0;
 		this.insertedArticlesCount = 0;
 		this.notProcessedArticlesCount = 0;
+		this.chainSpeed = 0;
 
 		this.queueLength = 0;
 		
@@ -45,6 +47,23 @@ public class StatisticsData implements StatisticsDataService {
 		
 		this.pageCount = 0;
 		this.processedPages = 0;
+		
+		Thread speedCounter = new Thread() {
+			private int lastStoredArticlesCount = 0; 
+			public void run() {
+				while (true) {
+				this.lastStoredArticlesCount = getStoredArticlesCount();
+					try {
+						Thread.sleep(1000 * 60);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					setChainSpeed(getStoredArticlesCount() - lastStoredArticlesCount);
+				}
+			}
+		};
+		speedCounter.start();
 	}
 
 	@Override
@@ -164,6 +183,15 @@ public class StatisticsData implements StatisticsDataService {
 	@Override
 	public void increaseProcessedPages() {
 		this.processedPages++;
+	}
+
+	@Override
+	public double getChainSpeed() {
+		return this.chainSpeed;
+	}
+	
+	public void setChainSpeed(double speed) {
+		this.chainSpeed = speed;
 	}
 
 }

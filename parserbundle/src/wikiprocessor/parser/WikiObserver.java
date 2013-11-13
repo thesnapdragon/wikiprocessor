@@ -61,14 +61,13 @@ public class WikiObserver implements Observer {
 		ParserActivator.statistics.setWorkingParserRatio(name, (parsoidMaxNumber - parsoidList.size()) / (double)parsoidMaxNumber);
 		return parsoidList.poll();
 	}
-	
-	public String getName() {
-		return name;
-	}
 
 	public synchronized void putParsoidInstance(String url) {
 		ParserActivator.statistics.setWorkingParserRatio(name, (parsoidMaxNumber - parsoidList.size()) / (double)parsoidMaxNumber);
 		parsoidList.add(url);
 	}
 
+	public String getName() {
+		return name;
+	}
 }

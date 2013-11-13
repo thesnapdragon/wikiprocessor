@@ -16,7 +16,11 @@ import wikiprocessor.parser.service.QueueManagerService;
 public class QueueManager extends Observable implements QueueManagerService {
 
 	// threadsafe queue
-	private LinkedBlockingQueue<Article> queue = new LinkedBlockingQueue<Article>();
+	private LinkedBlockingQueue<Article> queue = null;
+	
+	public QueueManager(int size) {
+		queue =  new LinkedBlockingQueue<Article>(size);
+	}
 	
 	/**
 	 * add item to the queue
@@ -24,7 +28,12 @@ public class QueueManager extends Observable implements QueueManagerService {
 	 */
 	public void addToQueue(Article item) {
 		// add item to the queue
-		queue.add(item);
+		try {
+			queue.put(item);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ParserActivator.statistics.increaseQueueLength();
 		// notifies WikiObserver
 		setChanged();

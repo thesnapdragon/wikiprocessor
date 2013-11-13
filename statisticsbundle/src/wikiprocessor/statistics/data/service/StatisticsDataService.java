@@ -23,6 +23,8 @@ public interface StatisticsDataService {
 
 	public void increaseNotProcessedArticlesCount();
 	
+	public double getChainSpeed();
+	
 	public int getQueueLength();
 	
 	public void increaseQueueLength();

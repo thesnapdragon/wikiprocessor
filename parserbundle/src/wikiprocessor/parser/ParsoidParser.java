@@ -38,7 +38,7 @@ public class ParsoidParser implements WikiParser {
 		try {
 			URL url = new URL(urlString);
 			URLConnection conn = url.openConnection();
-
+			
 			conn.setDoOutput(true);
 
 			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());

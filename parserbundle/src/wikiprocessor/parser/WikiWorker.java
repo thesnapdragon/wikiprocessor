@@ -51,9 +51,9 @@ public class WikiWorker implements Runnable {
 		this.observable = observable;
 		this.database = database;		
 
-		this.parser = new ParsoidParser(wikiObserver);
-		
 		if (wikiObserver.getName().endsWith("dump")) skipDownload = true;
+		
+		this.parser = new ParsoidParser(wikiObserver);
 //		this.parser = new SimpleParser();
 //		this.parser = new DumbRegexWikiParser();
 	}
@@ -83,40 +83,38 @@ public class WikiWorker implements Runnable {
 	public void work() {
 		while (queuemanager.getSize() > 0) {
 			Article article = queuemanager.pollFromQueue();
-			Document doc = downloadArticle(article);
-
+			
 			// don not extract article's text if the article was not downloaded 
 			String wikiText = null;
-			if (doc != null || skipDownload) {
-				if (skipDownload) {
-					wikiText = article.getText();
-				} else {
-					wikiText = getRawWikitext(doc);
-				}
-				
-				// if wikiText has been found
-				if (wikiText != null) {
-					// if newer version is in the DB then do nothing
-					if (!database.searchNewer(article.getTitle(), article.getRevision())) {
-						// parsing wikiText
-						String parsedText = parser.parse(wikiText);
-						if (parsedText != null && !parsedText.isEmpty()) {
-							article.setText(parsedText);
-							
-							// check if in DB has older version
-							if (!database.searchOlder(article.getTitle(), article.getRevision())) {
-								// if not: insert
-								database.insert(article);
-								ParserActivator.statistics.increaseInsertedArticlesCount();
-							} else {
-								// else: update
-								database.update(article);
-								ParserActivator.statistics.increaseUpdatedArticlesCount();
-							}
+			if (skipDownload) {
+				wikiText = article.getText();
+			} else {
+				Document doc = downloadArticle(article);
+				wikiText = getRawWikitext(doc);
+			}
+			
+			// if wikiText has been found
+			if (wikiText != null) {
+				// if newer version is in the DB then do nothing
+				if (!database.searchNewer(article.getTitle(), article.getRevision())) {
+					// parsing wikiText
+					String parsedText = parser.parse(wikiText);
+					if (parsedText != null && !parsedText.isEmpty()) {
+						article.setText(parsedText);
+						
+						// check if in DB has older version
+						if (!database.searchOlder(article.getTitle(), article.getRevision())) {
+							// if not: insert
+							database.insert(article);
+							ParserActivator.statistics.increaseInsertedArticlesCount();
+						} else {
+							// else: update
+							database.update(article);
+							ParserActivator.statistics.increaseUpdatedArticlesCount();
 						}
-					} else {
-						ParserActivator.statistics.increaseNotProcessedArticlesCount();
 					}
+				} else {
+					ParserActivator.statistics.increaseNotProcessedArticlesCount();
 				}
 			}
 		}

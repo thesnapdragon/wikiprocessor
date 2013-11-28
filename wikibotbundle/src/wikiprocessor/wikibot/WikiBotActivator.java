@@ -11,7 +11,6 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 
 import wikiprocessor.logger.service.LoggerService;
 import wikiprocessor.parser.service.QueueManagerService;
-import wikiprocessor.statistics.data.service.StatisticsDataService;
 
 /**
  * @author Milán Unicsovics, u.milan at gmail dot com, MTA SZTAKI
@@ -33,10 +32,7 @@ public class WikiBotActivator implements BundleActivator {
 	
 	// logger instance
 	public static LoggerService logger;
-	
-	// statistics bundle unstance
-	public static StatisticsDataService statistics;
-	
+
 	// PircBotX instance
 	private PircBotX bot;
 	
